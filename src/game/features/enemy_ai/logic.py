@@ -26,6 +26,8 @@ class EnemyAISystem(System):
         player_transform = player_entity.get(TransformComponent)
         player_map = player_entity.get(PlayerComponent).current_map
 
+        to_remove = []
+
         for entity in world.query(AIComponent, TransformComponent, VelocityComponent):
             ai = entity.get(AIComponent)
             transform = entity.get(TransformComponent)
@@ -46,7 +48,7 @@ class EnemyAISystem(System):
                 logger.debug("Enemy died: %s", enemy_name)
                 self.game.event_bus.emit("entity_killed", entity=entity, name=enemy_name,
                                         x=transform.x, y=transform.y, map_name=ai.current_map)
-                world.remove_entity(entity.id)
+                to_remove.append(entity.id)
                 continue
 
             transform.save_old()
@@ -88,3 +90,6 @@ class EnemyAISystem(System):
                 logger.debug("Enemy shoot: entity %d", entity.id)
                 if anim:
                     anim.is_attack = True
+
+        for eid in to_remove:
+            world.remove_entity(eid)

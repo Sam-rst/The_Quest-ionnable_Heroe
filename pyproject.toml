@@ -9,6 +9,14 @@ dependencies = [
     "pytmx>=3.32",
 ]
 
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-v --tb=short"
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
