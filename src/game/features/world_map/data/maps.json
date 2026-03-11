@@ -1,6 +1,6 @@
 {
   "Overworld": {
-    "tmx_file": "graphics/Tiled/data/tmx/Overworld.tmx",
+    "tmx_file": "assets/maps/tmx/Overworld.tmx",
     "bg_color": "#71ddee",
     "collision_layers": ["Collisions"],
     "teleporters": [
@@ -9,7 +9,7 @@
     ]
   },
   "Dungeon": {
-    "tmx_file": "graphics/Tiled/data/tmx/Dungeon.tmx",
+    "tmx_file": "assets/maps/tmx/Dungeon.tmx",
     "bg_color": "#1f1f1f",
     "collision_layers": ["Collisions"],
     "teleporters": [
@@ -17,7 +17,7 @@
     ]
   },
   "Swamp": {
-    "tmx_file": "graphics/Tiled/data/tmx/Swamp.tmx",
+    "tmx_file": "assets/maps/tmx/Swamp.tmx",
     "bg_color": "#71ddee",
     "collision_layers": ["Collisions"],
     "teleporters": [
@@ -26,7 +26,7 @@
     ]
   },
   "Waterfall": {
-    "tmx_file": "graphics/Tiled/data/tmx/Waterfall.tmx",
+    "tmx_file": "assets/maps/tmx/Waterfall.tmx",
     "bg_color": "#71ddee",
     "collision_layers": ["Collisions"],
     "teleporters": [
@@ -36,7 +36,7 @@
     ]
   },
   "Watertemple": {
-    "tmx_file": "graphics/Tiled/data/tmx/Watertemple.tmx",
+    "tmx_file": "assets/maps/tmx/Watertemple.tmx",
     "bg_color": "#1e7cb8",
     "collision_layers": ["Collisions"],
     "teleporters": [
@@ -44,7 +44,7 @@
     ]
   },
   "Castle": {
-    "tmx_file": "graphics/Tiled/data/tmx/Castle.tmx",
+    "tmx_file": "assets/maps/tmx/Castle.tmx",
     "bg_color": "#71ddee",
     "collision_layers": ["Collisions"],
     "teleporters": [

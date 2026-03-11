@@ -50,7 +50,7 @@ def create_game() -> None:
     input_adapter = PygameInputAdapter(input_map)
 
     # Font path
-    font_path = "graphics/font/Enchanted_Land.otf"
+    font_path = "assets/fonts/Enchanted_Land.otf"
 
     # Scene manager
     scene_manager = SceneManager(game)

@@ -1,7 +1,7 @@
 {
   "sprites": {
     "warrior": {
-      "base_path": "caracters/player/warrior",
+      "base_path": "characters/player/warrior",
       "animations": {
         "walking": {
           "bottom": [
@@ -86,7 +86,7 @@
       }
     },
     "mage": {
-      "base_path": "caracters/player/mage",
+      "base_path": "characters/player/mage",
       "animations": {
         "walking": {
           "bottom": [
@@ -179,7 +179,7 @@
       }
     },
     "assassin": {
-      "base_path": "caracters/player/assassin",
+      "base_path": "characters/player/assassin",
       "animations": {
         "walking": {
           "bottom": [
@@ -264,7 +264,7 @@
       }
     },
     "guard": {
-      "base_path": "caracters/player/guard",
+      "base_path": "characters/player/guard",
       "animations": {
         "walking": {
           "bottom": [
@@ -357,7 +357,7 @@
       }
     },
     "archer": {
-      "base_path": "caracters/player/archer",
+      "base_path": "characters/player/archer",
       "animations": {
         "walking": {
           "bottom": [
@@ -470,7 +470,7 @@
       }
     },
     "tank": {
-      "base_path": "caracters/player/tank",
+      "base_path": "characters/player/tank",
       "animations": {
         "walking": {
           "bottom": [
@@ -555,7 +555,7 @@
       }
     },
     "villager": {
-      "base_path": "caracters/player/villager",
+      "base_path": "characters/player/villager",
       "animations": {
         "walking": {
           "bottom": [
@@ -591,7 +591,7 @@
       }
     },
     "caracter": {
-      "base_path": "caracters/caracter",
+      "base_path": "characters/base",
       "animations": {
         "walking": {
           "bottom": [
@@ -622,7 +622,7 @@
       }
     },
     "demon": {
-      "base_path": "caracters/ennemy/demon",
+      "base_path": "characters/ennemy/demon",
       "animations": {
         "walking": {
           "bottom": [
@@ -707,7 +707,7 @@
       }
     },
     "gobelin": {
-      "base_path": "caracters/ennemy/gobelin",
+      "base_path": "characters/ennemy/gobelin",
       "animations": {
         "walking": {
           "bottom": [
@@ -792,7 +792,7 @@
       }
     },
     "skeleton": {
-      "base_path": "caracters/ennemy/skeleton",
+      "base_path": "characters/ennemy/skeleton",
       "animations": {
         "walking": {
           "bottom": [
@@ -877,7 +877,7 @@
       }
     },
     "zombie": {
-      "base_path": "caracters/ennemy/zombie",
+      "base_path": "characters/ennemy/zombie",
       "animations": {
         "walking": {
           "bottom": [
@@ -962,7 +962,7 @@
       }
     },
     "waterboss": {
-      "base_path": "caracters/ennemy/waterboss",
+      "base_path": "characters/ennemy/waterboss",
       "animations": {
         "walking": {
           "bottom": [
@@ -1047,7 +1047,7 @@
       }
     },
     "farmer": {
-      "base_path": "caracters/pnj/farmer",
+      "base_path": "characters/npc/farmer",
       "animations": {
         "walking": {
           "bottom": [
@@ -1098,7 +1098,7 @@
       }
     },
     "farmer2": {
-      "base_path": "caracters/pnj/farmer2",
+      "base_path": "characters/npc/farmer2",
       "animations": {
         "walking": {
           "bottom": [
@@ -1149,7 +1149,7 @@
       }
     },
     "merchant": {
-      "base_path": "caracters/pnj/merchant",
+      "base_path": "characters/npc/merchant",
       "animations": {
         "walking": {
           "bottom": [
@@ -1200,7 +1200,7 @@
       }
     },
     "blacksmith": {
-      "base_path": "caracters/pnj/blacksmith",
+      "base_path": "characters/npc/blacksmith",
       "animations": {
         "walking": {
           "bottom": [
@@ -1251,7 +1251,7 @@
       }
     },
     "woman": {
-      "base_path": "caracters/pnj/woman",
+      "base_path": "characters/npc/woman",
       "animations": {
         "walking": {
           "bottom": [

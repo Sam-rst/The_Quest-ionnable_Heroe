@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.0" name="dungeon_tiles" tilewidth="8" tileheight="8" tilecount="2208" columns="46">
- <image source="../../dungeon_tiles.png" width="368" height="384"/>
+ <image source="../tilesets/dungeon_tiles.png" width="368" height="384"/>
  <wangsets>
   <wangset name="Unnamed Set" type="mixed" tile="-1">
    <wangcolor name="Cobble" color="#4e5964" tile="-1" probability="1"/>

@@ -83,12 +83,12 @@ class GameplayScene(Scene):
         self.camera.mode = "center"
 
         # Load font path
-        self.font_path = "graphics/font/Enchanted_Land.otf"
+        self.font_path = "assets/fonts/Enchanted_Land.otf"
 
         # Load projectile images
-        self.orb_red_img = pygame.image.load("graphics/weapons/orbs/orb_red.png").convert_alpha()
-        self.orb_yellow_img = pygame.image.load("graphics/weapons/orbs/orb_yellow.png").convert_alpha()
-        self.potion_img = pygame.image.load("graphics/potions/potion_heal.png").convert_alpha()
+        self.orb_red_img = pygame.image.load("assets/sprites/weapons/orbs/orb_red.png").convert_alpha()
+        self.orb_yellow_img = pygame.image.load("assets/sprites/weapons/orbs/orb_yellow.png").convert_alpha()
+        self.potion_img = pygame.image.load("assets/sprites/potions/potion_heal.png").convert_alpha()
 
         # Load item frames
         piece_frames = self.asset_loader.load_item_frames("piece")
