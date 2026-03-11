@@ -1,0 +1,12 @@
+{
+  "Piece": {
+    "type": "currency",
+    "sprite_id": "piece",
+    "animation_speed": 0.2
+  },
+  "potion": {
+    "type": "consumable",
+    "heal_percent": 1.6,
+    "image": "potions/potion_heal.png"
+  }
+}

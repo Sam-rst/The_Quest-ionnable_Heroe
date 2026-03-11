@@ -1,0 +1,11 @@
+{
+  "trades": [
+    {
+      "cost_item": "Piece",
+      "cost_amount": 1,
+      "reward_item": "potion",
+      "reward_amount": 1,
+      "display": "1 potion pour 1 piece"
+    }
+  ]
+}

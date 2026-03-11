@@ -1,0 +1,46 @@
+{
+  "Demon": {
+    "sprite_id": "demon",
+    "max_hp": 50,
+    "attack": 5,
+    "defense": 5,
+    "range": 5,
+    "cooldown": 1500,
+    "speed": 150,
+    "animation_speed": 0.5,
+    "move_cooldown": 1500
+  },
+  "Goblin": {
+    "sprite_id": "gobelin",
+    "max_hp": 50,
+    "attack": 5,
+    "defense": 5,
+    "range": 5,
+    "cooldown": 1500,
+    "speed": 150,
+    "animation_speed": 0.5,
+    "move_cooldown": 1500
+  },
+  "Zombie": {
+    "sprite_id": "zombie",
+    "max_hp": 50,
+    "attack": 5,
+    "defense": 5,
+    "range": 5,
+    "cooldown": 1500,
+    "speed": 150,
+    "animation_speed": 0.5,
+    "move_cooldown": 1500
+  },
+  "Skeleton": {
+    "sprite_id": "skeleton",
+    "max_hp": 50,
+    "attack": 5,
+    "defense": 5,
+    "range": 5,
+    "cooldown": 1500,
+    "speed": 150,
+    "animation_speed": 0.5,
+    "move_cooldown": 1500
+  }
+}

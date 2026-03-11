@@ -1,0 +1,1325 @@
+{
+  "sprites": {
+    "warrior": {
+      "base_path": "caracters/player/warrior",
+      "animations": {
+        "walking": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ]
+        },
+        "attack": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ]
+        }
+      }
+    },
+    "mage": {
+      "base_path": "caracters/player/mage",
+      "animations": {
+        "walking": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ]
+        },
+        "attack": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png"
+          ]
+        }
+      }
+    },
+    "assassin": {
+      "base_path": "caracters/player/assassin",
+      "animations": {
+        "walking": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ]
+        },
+        "attack": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ]
+        }
+      }
+    },
+    "guard": {
+      "base_path": "caracters/player/guard",
+      "animations": {
+        "walking": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ]
+        },
+        "attack": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png"
+          ]
+        }
+      }
+    },
+    "archer": {
+      "base_path": "caracters/player/archer",
+      "animations": {
+        "walking": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ]
+        },
+        "attack": {
+          "bottom": [
+            "anim_1.png",
+            "anim_10.png",
+            "anim_11.png",
+            "anim_12.png",
+            "anim_13.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_10.png",
+            "anim_11.png",
+            "anim_12.png",
+            "anim_13.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_10.png",
+            "anim_11.png",
+            "anim_12.png",
+            "anim_13.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_10.png",
+            "anim_11.png",
+            "anim_12.png",
+            "anim_13.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ]
+        }
+      }
+    },
+    "tank": {
+      "base_path": "caracters/player/tank",
+      "animations": {
+        "walking": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ]
+        },
+        "attack": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ]
+        }
+      }
+    },
+    "villager": {
+      "base_path": "caracters/player/villager",
+      "animations": {
+        "walking": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png"
+          ]
+        }
+      }
+    },
+    "caracter": {
+      "base_path": "caracters/caracter",
+      "animations": {
+        "walking": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png"
+          ]
+        }
+      }
+    },
+    "demon": {
+      "base_path": "caracters/ennemy/demon",
+      "animations": {
+        "walking": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ]
+        },
+        "attack": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ]
+        }
+      }
+    },
+    "gobelin": {
+      "base_path": "caracters/ennemy/gobelin",
+      "animations": {
+        "walking": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ]
+        },
+        "attack": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ]
+        }
+      }
+    },
+    "skeleton": {
+      "base_path": "caracters/ennemy/skeleton",
+      "animations": {
+        "walking": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ]
+        },
+        "attack": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ]
+        }
+      }
+    },
+    "zombie": {
+      "base_path": "caracters/ennemy/zombie",
+      "animations": {
+        "walking": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ]
+        },
+        "attack": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ]
+        }
+      }
+    },
+    "waterboss": {
+      "base_path": "caracters/ennemy/waterboss",
+      "animations": {
+        "walking": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ]
+        },
+        "attack": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png"
+          ]
+        }
+      }
+    },
+    "farmer": {
+      "base_path": "caracters/pnj/farmer",
+      "animations": {
+        "walking": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ]
+        }
+      }
+    },
+    "farmer2": {
+      "base_path": "caracters/pnj/farmer2",
+      "animations": {
+        "walking": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ]
+        }
+      }
+    },
+    "merchant": {
+      "base_path": "caracters/pnj/merchant",
+      "animations": {
+        "walking": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ]
+        }
+      }
+    },
+    "blacksmith": {
+      "base_path": "caracters/pnj/blacksmith",
+      "animations": {
+        "walking": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ]
+        }
+      }
+    },
+    "woman": {
+      "base_path": "caracters/pnj/woman",
+      "animations": {
+        "walking": {
+          "bottom": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "left": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "right": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ],
+          "top": [
+            "anim_1.png",
+            "anim_2.png",
+            "anim_3.png",
+            "anim_4.png",
+            "anim_5.png",
+            "anim_6.png",
+            "anim_7.png",
+            "anim_8.png",
+            "anim_9.png"
+          ]
+        }
+      }
+    }
+  },
+  "items": {
+    "piece": {
+      "frames": [
+        "items/piece/anim_1.png",
+        "items/piece/anim_2.png",
+        "items/piece/anim_3.png",
+        "items/piece/anim_4.png"
+      ]
+    }
+  },
+  "weapons": {
+    "orb_red": "weapons/orbs/orb_red.png",
+    "orb_yellow": "weapons/orbs/orb_yellow.png"
+  },
+  "potions": {
+    "heal": "potions/potion_heal.png"
+  },
+  "fonts": {
+    "enchanted_land": "font/Enchanted_Land.otf"
+  }
+}

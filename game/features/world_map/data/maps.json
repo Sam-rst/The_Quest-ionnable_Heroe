@@ -1,0 +1,55 @@
+{
+  "Overworld": {
+    "tmx_file": "graphics/Tiled/data/tmx/Overworld.tmx",
+    "bg_color": "#71ddee",
+    "collision_layers": ["Collisions"],
+    "teleporters": [
+      {"name": "DungeonEntrance", "destination": "Dungeon", "waypoint_back": "DungeonEntrance"},
+      {"name": "SwampEntrance", "destination": "Swamp", "waypoint_back": "OverworldExit"}
+    ]
+  },
+  "Dungeon": {
+    "tmx_file": "graphics/Tiled/data/tmx/Dungeon.tmx",
+    "bg_color": "#1f1f1f",
+    "collision_layers": ["Collisions"],
+    "teleporters": [
+      {"name": "ExitDungeon", "destination": "Overworld", "waypoint_back": "DungeonExit"}
+    ]
+  },
+  "Swamp": {
+    "tmx_file": "graphics/Tiled/data/tmx/Swamp.tmx",
+    "bg_color": "#71ddee",
+    "collision_layers": ["Collisions"],
+    "teleporters": [
+      {"name": "OverworldEntrance", "destination": "Overworld", "waypoint_back": "SwampExit"},
+      {"name": "EntranceWaterfall", "destination": "Waterfall", "waypoint_back": "WaterfallEntrance"}
+    ]
+  },
+  "Waterfall": {
+    "tmx_file": "graphics/Tiled/data/tmx/Waterfall.tmx",
+    "bg_color": "#71ddee",
+    "collision_layers": ["Collisions"],
+    "teleporters": [
+      {"name": "SwampEntrance", "destination": "Swamp", "waypoint_back": "WaterfallExit"},
+      {"name": "WatertempleEntrance", "destination": "Watertemple", "waypoint_back": "WatertempleEntrance"},
+      {"name": "CastleEntrance", "destination": "Castle", "waypoint_back": "CastleEntrance"}
+    ]
+  },
+  "Watertemple": {
+    "tmx_file": "graphics/Tiled/data/tmx/Watertemple.tmx",
+    "bg_color": "#1e7cb8",
+    "collision_layers": ["Collisions"],
+    "teleporters": [
+      {"name": "WatertempleExit", "destination": "Waterfall", "waypoint_back": "WatertempleExit"}
+    ]
+  },
+  "Castle": {
+    "tmx_file": "graphics/Tiled/data/tmx/Castle.tmx",
+    "bg_color": "#71ddee",
+    "collision_layers": ["Collisions"],
+    "teleporters": [
+      {"name": "CastleEntrance", "destination": "Castle", "waypoint_back": "CastleEntrance"},
+      {"name": "WaterfallEntrance", "destination": "Waterfall", "waypoint_back": "CastleExit"}
+    ]
+  }
+}

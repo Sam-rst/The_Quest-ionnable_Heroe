@@ -1,0 +1,68 @@
+{
+  "Warrior": {
+    "sprite_id": "warrior",
+    "max_hp": 100,
+    "attack": 20,
+    "defense": 10,
+    "range": 3,
+    "cooldown": 800,
+    "speed": 250,
+    "animation_speed": 0.5,
+    "display_name": "Guerrier"
+  },
+  "Mage": {
+    "sprite_id": "mage",
+    "max_hp": 80,
+    "attack": 15,
+    "defense": 5,
+    "range": 20,
+    "cooldown": 800,
+    "speed": 275,
+    "animation_speed": 0.5,
+    "display_name": "Mage"
+  },
+  "Assassin": {
+    "sprite_id": "assassin",
+    "max_hp": 75,
+    "attack": 12,
+    "defense": 2,
+    "range": 3,
+    "cooldown": 400,
+    "speed": 600,
+    "animation_speed": 0.5,
+    "display_name": "Assassin"
+  },
+  "Guard": {
+    "sprite_id": "guard",
+    "max_hp": 150,
+    "attack": 10,
+    "defense": 15,
+    "range": 2,
+    "cooldown": 1200,
+    "speed": 250,
+    "animation_speed": 0.5,
+    "display_name": "Garde"
+  },
+  "Archer": {
+    "sprite_id": "archer",
+    "max_hp": 95,
+    "attack": 18,
+    "defense": 2,
+    "range": 75,
+    "cooldown": 850,
+    "speed": 450,
+    "animation_speed": 0.5,
+    "display_name": "Archer"
+  },
+  "Tank": {
+    "sprite_id": "tank",
+    "max_hp": 300,
+    "attack": 10,
+    "defense": 20,
+    "range": 2,
+    "cooldown": 1000,
+    "speed": 200,
+    "animation_speed": 0.5,
+    "display_name": "Tank"
+  }
+}

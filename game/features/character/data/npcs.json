@@ -1,0 +1,29 @@
+{
+  "Merchant": {
+    "sprite_id": "merchant",
+    "max_hp": 10000,
+    "attack": 0,
+    "defense": 100000,
+    "range": 0,
+    "cooldown": 8000000,
+    "speed": 0,
+    "animation_speed": 0.2,
+    "move_cooldown": 1500,
+    "spawn_waypoint": "SpawnMerchant",
+    "interactable": true,
+    "wanders": false
+  },
+  "Farmer": {
+    "sprite_id": "farmer",
+    "max_hp": 10000,
+    "attack": 0,
+    "defense": 100000,
+    "range": 0,
+    "cooldown": 8000000,
+    "speed": 100,
+    "animation_speed": 0.1,
+    "move_cooldown": 1500,
+    "wanders": true,
+    "random_spawn": true
+  }
+}

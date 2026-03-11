@@ -1,0 +1,39 @@
+{
+  "enemies": [
+    {"name": "Demon1", "type": "Demon", "map": "Watertemple"},
+    {"name": "Demon2", "type": "Demon", "map": "Dungeon"},
+    {"name": "Demon3", "type": "Demon", "map": "Dungeon"},
+    {"name": "Demon4", "type": "Demon", "map": "Watertemple"},
+    {"name": "Demon5", "type": "Demon", "map": "Dungeon"},
+    {"name": "Goblin1", "type": "Goblin", "map": "Watertemple"},
+    {"name": "Goblin2", "type": "Goblin", "map": "Dungeon"},
+    {"name": "Goblin3", "type": "Goblin", "map": "Watertemple"},
+    {"name": "Goblin4", "type": "Goblin", "map": "Dungeon"},
+    {"name": "Goblin5", "type": "Goblin", "map": "Watertemple"},
+    {"name": "Zombie1", "type": "Zombie", "map": "Dungeon"},
+    {"name": "Zombie2", "type": "Zombie", "map": "Watertemple"},
+    {"name": "Zombie3", "type": "Zombie", "map": "Dungeon"},
+    {"name": "Zombie4", "type": "Zombie", "map": "Dungeon"},
+    {"name": "Zombie5", "type": "Zombie", "map": "Watertemple"},
+    {"name": "Skeleton1", "type": "Skeleton", "map": "Dungeon"},
+    {"name": "Skeleton2", "type": "Skeleton", "map": "Watertemple"},
+    {"name": "Skeleton3", "type": "Skeleton", "map": "Watertemple"},
+    {"name": "Skeleton4", "type": "Skeleton", "map": "Dungeon"},
+    {"name": "Skeleton5", "type": "Skeleton", "map": "Dungeon"}
+  ],
+  "npcs": [
+    {"name": "Kiki", "type": "Merchant", "map": "Overworld"},
+    {"name": "Fifi1", "type": "Farmer", "map": "Overworld"},
+    {"name": "Fifi2", "type": "Farmer", "map": "Overworld"},
+    {"name": "Fifi3", "type": "Farmer", "map": "Overworld"},
+    {"name": "Fifi4", "type": "Farmer", "map": "Overworld"},
+    {"name": "Fifi5", "type": "Farmer", "map": "Overworld"},
+    {"name": "Fifi6", "type": "Farmer", "map": "Overworld"},
+    {"name": "Fifi7", "type": "Farmer", "map": "Overworld"},
+    {"name": "Fifi8", "type": "Farmer", "map": "Overworld"},
+    {"name": "Fifi9", "type": "Farmer", "map": "Overworld"},
+    {"name": "Fifi10", "type": "Farmer", "map": "Overworld"},
+    {"name": "Fifi11", "type": "Farmer", "map": "Overworld"},
+    {"name": "Fifi12", "type": "Farmer", "map": "Overworld"}
+  ]
+}

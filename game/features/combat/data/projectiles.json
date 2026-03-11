@@ -1,0 +1,10 @@
+{
+  "player_orb": {
+    "image": "weapons/orbs/orb_red.png",
+    "speed": 1000
+  },
+  "enemy_orb": {
+    "image": "weapons/orbs/orb_yellow.png",
+    "speed": 1000
+  }
+}
