@@ -65,6 +65,25 @@ uv run main.py
 
 ---
 
+## 📁 Structure du projet
+
+```
+The_Quest-ionnable_Heroe/
+├── main.py              # Point d'entrée
+├── src/
+│   ├── engine/          # Moteur ECS réutilisable
+│   └── game/            # Code spécifique au jeu
+├── assets/
+│   ├── sprites/         # Personnages, items, armes, potions
+│   ├── maps/            # TMX, TSX, tilesets
+│   ├── fonts/           # Polices
+│   └── manifest.json    # Registre des sprites
+├── saves/               # Sauvegardes (auto-générées)
+└── docs/                # Documentation
+```
+
+---
+
 ## 🖥️ Compatibilité
 
 | OS         | Compatible |
