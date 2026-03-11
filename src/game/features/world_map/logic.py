@@ -1,9 +1,12 @@
 """WorldMapSystem: gestion des transitions entre maps, spawns."""
 
 import json
+import logging
 import os
 import random
 from engine.core.system import System
+
+logger = logging.getLogger(__name__)
 from engine.features.physics.components import TransformComponent
 from game.features.player.components import PlayerComponent
 from game.features.enemy_ai.components import AIComponent
@@ -27,6 +30,7 @@ class WorldMapSystem(System):
         self.maps_config = load_maps_config()
         self.current_map: str = "Overworld"
         self.tilemap_data: dict = {}  # map_name -> TilemapData
+        logger.info("Maps config loaded: %s", list(self.maps_config.keys()))
 
     def update(self, dt: float) -> None:
         pass
@@ -58,6 +62,7 @@ class WorldMapSystem(System):
             if ai:
                 ai.current_map = map_name
             game.world.add_entity(entity)
+            logger.debug("Spawned enemy %s (%s) on %s", spawn_def["name"], spawn_def["type"], map_name)
 
     def spawn_npcs_for_map(self, map_name: str, game, asset_loader,
                            tilemap_data=None, map_pixel_size: tuple = (2000, 2000)) -> None:
@@ -95,3 +100,4 @@ class WorldMapSystem(System):
             if npc_comp:
                 npc_comp.current_map = map_name
             game.world.add_entity(entity)
+            logger.debug("Spawned NPC %s (%s) on %s", spawn_def["name"], npc_type, map_name)

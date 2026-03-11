@@ -1,8 +1,11 @@
 """SaveManager générique — indépendant du format de stockage."""
 
 from __future__ import annotations
+import logging
 from abc import ABC, abstractmethod
 from typing import Any
+
+logger = logging.getLogger(__name__)
 
 
 class SaveBackend(ABC):
@@ -38,10 +41,13 @@ class SaveManager:
 
     def save(self) -> None:
         self.backend.save(self.data)
+        logger.info("Save written")
 
     def delete(self) -> None:
         self.backend.delete()
         self._data = None
+        logger.info("Save deleted")
 
     def reload(self) -> None:
         self._data = None
+        logger.info("Save reloaded")

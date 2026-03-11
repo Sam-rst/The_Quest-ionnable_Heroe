@@ -1,8 +1,11 @@
 """GameplayScene: orchestre tous les systèmes pendant le jeu."""
 
+import logging
 import pygame
 import sys
 import math
+
+logger = logging.getLogger(__name__)
 
 from engine.features.scene.logic import Scene
 from engine.features.input.logic import InputAction, InputState
@@ -74,6 +77,7 @@ class GameplayScene(Scene):
         self.font_path: str | None = None
 
     def on_enter(self) -> None:
+        logger.info("Entrée GameplayScene (classe=%s)", self.player_class)
         self.screen = pygame.display.get_surface()
         screen_w, screen_h = self.screen.get_size()
         self.game.settings["screen_size"] = (screen_w, screen_h)
@@ -102,6 +106,7 @@ class GameplayScene(Scene):
 
         # Load all maps
         maps_config = load_maps_config()
+        logger.info("Chargement de %d maps…", len(maps_config))
         for map_name, config in maps_config.items():
             tmx_path = config["tmx_file"]
             tp_defs = self.world_map_system.get_teleporter_defs(map_name)
@@ -162,6 +167,7 @@ class GameplayScene(Scene):
                 stats.attack_range = saved_class["Attack range"]
 
         self.game.world.add_entity(self.player_entity)
+        logger.info("Joueur spawné à (%.0f, %.0f) sur %s", spawn_pos[0], spawn_pos[1], self.current_map)
 
         # Spawn enemies and NPCs for all maps
         dead_mobs = self.save_manager.get("mob_name", [])
@@ -210,9 +216,11 @@ class GameplayScene(Scene):
         self.game.event_bus.subscribe("entity_killed", self._on_entity_killed)
 
     def _on_player_died(self, entity, **kw) -> None:
+        logger.info("Joueur mort — game over")
         self.game_over = True
 
     def _on_entity_killed(self, entity, name, x, y, map_name, **kw) -> None:
+        logger.info("Entité tuée: %s à (%.0f, %.0f) sur %s", name, x, y, map_name)
         # Save dead mob
         dead = self.save_manager.get("mob_name", [])
         if name not in dead:
@@ -410,6 +418,7 @@ class GameplayScene(Scene):
                 if dest_map in self.tilemap_data:
                     dest_pos = self.tilemap_data[dest_map].get_waypoint(dest_wp)
                     if dest_pos:
+                        logger.info("Téléport → %s (%s)", dest_map, dest_wp)
                         self.current_map = dest_map
                         if self.world_map_system:
                             self.world_map_system.current_map = dest_map
@@ -438,6 +447,7 @@ class GameplayScene(Scene):
             if dx * dx + dy * dy < 50 * 50:
                 inv.add_item(drop.item_name)
                 to_remove.append(entity.id)
+                logger.info("Item ramassé: %s", drop.item_name)
 
         for eid in to_remove:
             self.game.world.remove_entity(eid)
@@ -458,6 +468,7 @@ class GameplayScene(Scene):
                 dx = pt.x - nt.x
                 dy = pt.y - nt.y
                 if dx * dx + dy * dy < 100 * 100:
+                    logger.info("Ouverture boutique")
                     run_shop_menu(self.screen, inv, self.potion_img, self.font_path)
                     return
 
@@ -473,6 +484,7 @@ class GameplayScene(Scene):
             inv.remove_item("potion")
             new_hp = int(stats.hp * 1.6)
             stats.hp = min(new_hp, stats.max_hp)
+            logger.info("Potion utilisée — HP=%d/%d", stats.hp, stats.max_hp)
 
     def _do_save(self) -> None:
         if not self.player_entity:
@@ -501,8 +513,10 @@ class GameplayScene(Scene):
             })
 
         self.save_manager.save()
+        logger.debug("Auto-save effectué")
 
     def _save_and_quit(self) -> None:
+        logger.info("Sauvegarde et quit")
         self._do_save()
         pygame.quit()
         sys.exit()

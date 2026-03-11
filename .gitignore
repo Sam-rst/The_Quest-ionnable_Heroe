@@ -178,3 +178,6 @@ pyrightconfig.json
 # Sauvegardes du jeu
 saves/
 save.json
+
+# Logs
+logs/

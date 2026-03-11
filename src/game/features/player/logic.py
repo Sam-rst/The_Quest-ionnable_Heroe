@@ -1,7 +1,10 @@
 """PlayerSystem: lit InputState pour calculer vélocité, tir, etc."""
 
+import logging
 import math
 from engine.core.system import System
+
+logger = logging.getLogger(__name__)
 from engine.features.input.logic import InputAction, InputState
 from engine.features.physics.components import TransformComponent, VelocityComponent
 from engine.features.sprite.components import AnimationSetComponent
@@ -72,7 +75,9 @@ class PlayerSystem(System):
                                             entity=entity,
                                             mouse_pos=self.input_state.mouse_pos)
                     stats.last_shot_time = ticks
+                    logger.debug("Player shoot")
 
             # Mort
             if stats and not stats.is_alive():
+                logger.info("Player died (HP=0)")
                 self.game.event_bus.emit("player_died", entity=entity)

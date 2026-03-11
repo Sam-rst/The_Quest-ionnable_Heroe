@@ -1,6 +1,9 @@
 """InventorySystem: gestion des items au sol et ramassage."""
 
+import logging
 from engine.core.system import System
+
+logger = logging.getLogger(__name__)
 from engine.core.entity import Entity
 from engine.features.physics.components import TransformComponent
 from engine.features.sprite.components import SpriteComponent
@@ -28,4 +31,5 @@ class InventorySystem(System):
             item_entity.add(DroppedItemComponent(item_name="Piece", current_map=drop["map"]))
             item_entity.add(SpriteComponent(sprite_id="piece", scale=4, visible=True))
             world.add_entity(item_entity)
+            logger.debug("Item dropped: Piece at (%.0f, %.0f)", drop["x"], drop["y"])
         self._pending_drops.clear()

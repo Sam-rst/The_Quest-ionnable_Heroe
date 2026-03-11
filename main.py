@@ -1,6 +1,17 @@
 """The Quest-ionnable Heroe — Point d'entrée."""
 
+import argparse
+import logging
+
+from engine.core.logging_setup import setup_logging
 from game.app import create_game
 
 if __name__ == "__main__":
-    create_game()
+    parser = argparse.ArgumentParser(description="The Quest-ionnable Heroe")
+    parser.add_argument("--debug", action="store_true", help="Active les logs DEBUG + overlay")
+    args = parser.parse_args()
+
+    level = logging.DEBUG if args.debug else logging.INFO
+    setup_logging(level=level)
+
+    create_game(debug=args.debug)

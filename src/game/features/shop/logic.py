@@ -1,8 +1,11 @@
 """ShopSystem: achat/vente."""
 
 import json
+import logging
 import os
 from game.features.inventory.components import InventoryComponent
+
+logger = logging.getLogger(__name__)
 
 
 _DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
@@ -28,5 +31,7 @@ def try_purchase(inventory: InventoryComponent, trade_index: int = 0) -> bool:
         for _ in range(cost_amount):
             inventory.remove_item(cost_item)
         inventory.add_item(reward_item)
+        logger.info("Achat réussi: %dx %s → %s", cost_amount, cost_item, reward_item)
         return True
+    logger.debug("Achat échoué: pas assez de %s (%d/%d)", cost_item, inventory.count(cost_item), cost_amount)
     return False

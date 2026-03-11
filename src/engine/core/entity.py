@@ -1,10 +1,13 @@
 """Entity: un ID unique + un dictionnaire de components."""
 
 from __future__ import annotations
+import logging
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from engine.core.component import Component
+
+logger = logging.getLogger(__name__)
 
 
 class Entity:
@@ -18,6 +21,7 @@ class Entity:
     def add(self, component: Component) -> "Entity":
         self._components[type(component)] = component
         component.entity = self
+        logger.debug("Entity(%d) +%s", self.id, type(component).__name__)
         return self
 
     def get(self, comp_type: type) -> Component | None:
@@ -30,6 +34,7 @@ class Entity:
         comp = self._components.pop(comp_type, None)
         if comp is not None:
             comp.entity = None
+            logger.debug("Entity(%d) -%s", self.id, comp_type.__name__)
         return comp
 
     def __repr__(self) -> str:

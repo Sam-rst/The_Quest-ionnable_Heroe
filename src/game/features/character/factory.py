@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 import json
+import logging
 import os
 from typing import TYPE_CHECKING
+
+logger = logging.getLogger(__name__)
 
 from engine.core.entity import Entity
 from engine.features.physics.components import TransformComponent, VelocityComponent, ColliderComponent
@@ -44,6 +47,7 @@ def create_player(class_name: str, name: str, x: float, y: float,
         anim.animations = asset_loader.load_all_animations(data["sprite_id"])
     entity.add(anim)
 
+    logger.info("Player created: %s (%s) at (%.0f, %.0f)", name, class_name, x, y)
     return entity
 
 
@@ -72,6 +76,7 @@ def create_enemy(enemy_type: str, name: str, x: float, y: float,
         anim.animations = asset_loader.load_all_animations(data["sprite_id"])
     entity.add(anim)
 
+    logger.debug("Enemy created: %s (%s) at (%.0f, %.0f)", name, enemy_type, x, y)
     return entity
 
 
@@ -105,4 +110,5 @@ def create_npc(npc_type: str, name: str, x: float, y: float,
         anim.animations = asset_loader.load_all_animations(data["sprite_id"])
     entity.add(anim)
 
+    logger.debug("NPC created: %s (%s) at (%.0f, %.0f)", name, npc_type, x, y)
     return entity

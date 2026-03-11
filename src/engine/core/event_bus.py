@@ -1,7 +1,10 @@
 """EventBus: publish/subscribe pour découpler les features entre elles."""
 
 from __future__ import annotations
+import logging
 from typing import Any, Callable
+
+logger = logging.getLogger(__name__)
 
 
 class EventBus:
@@ -10,11 +13,14 @@ class EventBus:
 
     def subscribe(self, event_type: str, callback: Callable) -> None:
         self._listeners.setdefault(event_type, []).append(callback)
+        logger.debug("Subscribe: %s → %s", event_type, callback.__qualname__)
 
     def unsubscribe(self, event_type: str, callback: Callable) -> None:
         if event_type in self._listeners:
             self._listeners[event_type].remove(callback)
 
     def emit(self, event_type: str, **data: Any) -> None:
-        for callback in self._listeners.get(event_type, []):
+        listeners = self._listeners.get(event_type, [])
+        logger.debug("Emit: %s (%d listeners)", event_type, len(listeners))
+        for callback in listeners:
             callback(**data)

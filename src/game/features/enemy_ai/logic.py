@@ -1,8 +1,11 @@
 """EnemyAISystem: wander + tir vers le joueur."""
 
+import logging
 import random
 import math
 from engine.core.system import System
+
+logger = logging.getLogger(__name__)
 from engine.features.physics.components import TransformComponent, VelocityComponent
 from engine.features.sprite.components import AnimationSetComponent
 from game.features.character.components import StatsComponent, NameComponent
@@ -40,6 +43,7 @@ class EnemyAISystem(System):
             if stats and not stats.is_alive():
                 name_comp = entity.get(NameComponent)
                 enemy_name = name_comp.name if name_comp else ""
+                logger.debug("Enemy died: %s", enemy_name)
                 self.game.event_bus.emit("entity_killed", entity=entity, name=enemy_name,
                                         x=transform.x, y=transform.y, map_name=ai.current_map)
                 world.remove_entity(entity.id)
@@ -81,5 +85,6 @@ class EnemyAISystem(System):
                                         target_x=player_transform.x,
                                         target_y=player_transform.y)
                 stats.last_shot_time = ticks
+                logger.debug("Enemy shoot: entity %d", entity.id)
                 if anim:
                     anim.is_attack = True

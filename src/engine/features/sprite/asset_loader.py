@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 import json
+import logging
 import os
+
+logger = logging.getLogger(__name__)
 
 
 class AssetLoader:
@@ -17,6 +20,7 @@ class AssetLoader:
         if self._manifest is None:
             with open(self.manifest_path, "r") as f:
                 self._manifest = json.load(f)
+            logger.info("Manifest loaded: %s", self.manifest_path)
         return self._manifest
 
     def load_animation(self, sprite_id: str, action: str, direction: str) -> list:
@@ -28,11 +32,14 @@ class AssetLoader:
 
         cache_key = f"{sprite_id}/{action}/{direction}"
         if cache_key in self._cache:
+            logger.debug("Cache hit: %s", cache_key)
             return self._cache[cache_key]
 
         sprite_def = self.manifest.get("sprites", {}).get(sprite_id)
         if not sprite_def:
+            logger.warning("Sprite manquant dans manifest: %s", sprite_id)
             return []
+        logger.debug("Cache miss: %s", cache_key)
 
         base_path = os.path.join(self.base_dir, sprite_def["base_path"])
         anim_def = sprite_def.get("animations", {}).get(action, {}).get(direction)

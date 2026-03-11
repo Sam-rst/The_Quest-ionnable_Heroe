@@ -1,8 +1,11 @@
 """MainMenuScene: sélection de classe ou chargement de sauvegarde."""
 
+import logging
 import pygame
 import sys
 from engine.features.scene.logic import Scene
+
+logger = logging.getLogger(__name__)
 
 
 CLASS_LIST = ["Warrior", "Mage", "Assassin", "Guard", "Archer", "Tank"]
@@ -55,6 +58,7 @@ class MainMenuScene(Scene):
                 for i, btn in enumerate(self.buttons):
                     if btn.collidepoint(pos):
                         self.selected_class = CLASS_LIST[i]
+                        logger.info("Classe sélectionnée: %s", self.selected_class)
                         self.done = True
                         return
 

@@ -1,7 +1,10 @@
 """CombatSystem: trajectoire, impact, dégâts des projectiles."""
 
+import logging
 import math
 from engine.core.system import System
+
+logger = logging.getLogger(__name__)
 from engine.core.entity import Entity
 from engine.features.physics.components import TransformComponent
 from engine.features.sprite.components import SpriteComponent, AnimationSetComponent
@@ -51,6 +54,7 @@ class CombatSystem(System):
 
             if proj.distance_traveled >= proj.attack_range:
                 to_remove.append(entity.id)
+                logger.debug("Projectile expired: entity %d", entity.id)
                 continue
 
             # Check collisions
@@ -62,6 +66,7 @@ class CombatSystem(System):
                     if self._collides(transform, pt, 30):
                         ps.take_damage(proj.damage)
                         to_remove.append(entity.id)
+                        logger.debug("Projectile hit player: -%d dmg (HP=%d)", proj.damage, ps.hp)
                         if not ps.is_alive():
                             self.game.event_bus.emit("player_died", entity=player_ent)
                         break
@@ -73,6 +78,7 @@ class CombatSystem(System):
                     if self._collides(transform, et, 30):
                         es.take_damage(proj.damage)
                         to_remove.append(entity.id)
+                        logger.debug("Projectile hit enemy %d: -%d dmg (HP=%d)", enemy_ent.id, proj.damage, es.hp)
                         break
 
         for eid in to_remove:
@@ -124,6 +130,7 @@ class CombatSystem(System):
         ))
         proj_entity.add(SpriteComponent(sprite_id="orb_red", scale=1, visible=True))
         self.game.world.add_entity(proj_entity)
+        logger.debug("Player projectile created: entity %d", proj_entity.id)
 
     def _create_enemy_projectile(self, shooter, target_x, target_y) -> None:
         transform = shooter.get(TransformComponent)
@@ -156,3 +163,4 @@ class CombatSystem(System):
         ))
         proj_entity.add(SpriteComponent(sprite_id="orb_yellow", scale=1, visible=True))
         self.game.world.add_entity(proj_entity)
+        logger.debug("Enemy projectile created: entity %d", proj_entity.id)

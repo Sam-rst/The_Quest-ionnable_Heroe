@@ -1,7 +1,10 @@
 """Tilemap logic: parse TMX vers des données pures (rects, waypoints)."""
 
 from __future__ import annotations
+import logging
 from dataclasses import dataclass, field
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -121,4 +124,7 @@ def parse_tmx(tmx_path: str, scale: int = 4,
                     height=wp.height * scale if wp.height else 16 * scale,
                 ))
 
+    logger.info("TMX parsed: %s (%dx%d tiles, %d collisions, %d waypoints, %d teleporters)",
+                data.name, data.width_tiles, data.height_tiles,
+                len(data.collision_rects), len(data.waypoints), len(data.teleporters))
     return data

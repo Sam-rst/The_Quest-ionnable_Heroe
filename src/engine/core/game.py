@@ -1,10 +1,14 @@
 """Game: boucle principale, feature registry, world et event bus."""
 
 from __future__ import annotations
+import logging
+
 from engine.core.world import World
 from engine.core.event_bus import EventBus
 from engine.core.system import System, Feature
 from engine.core.time_manager import TimeManager
+
+logger = logging.getLogger(__name__)
 
 
 class Game:
@@ -22,6 +26,7 @@ class Game:
         system.game = self
         self._systems.append(system)
         system.on_enter()
+        logger.debug("System registered: %s", type(system).__name__)
 
     def add_feature(self, feature: Feature) -> None:
         feature.game = self
@@ -40,4 +45,5 @@ class Game:
             renderer.render()
 
     def quit(self) -> None:
+        logger.info("Game quit requested")
         self.running = False

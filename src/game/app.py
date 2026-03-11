@@ -1,5 +1,6 @@
 """Application: crée le Game, enregistre les features, lance la boucle."""
 
+import logging
 import pygame
 import sys
 
@@ -15,14 +16,23 @@ from game import settings
 from game.features.main_menu.scene import MainMenuScene
 from game.features.game_over.scene import GameOverScene
 from game.features.gameplay.scene import GameplayScene
+from game.features.gameplay.debug_overlay import DebugOverlay
+
+logger = logging.getLogger(__name__)
 
 
-def create_game() -> None:
+def create_game(debug: bool = False) -> None:
     """Point d'entrée principal: initialise pygame et lance le jeu."""
+    logger.info("Initialisation de pygame…")
     pygame.init()
     screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
     pygame.display.set_caption(settings.TITLE)
     clock = pygame.time.Clock()
+
+    # Debug overlay
+    debug_overlay = DebugOverlay()
+    debug_overlay.enabled = debug
+    debug_overlay.init(clock)
 
     # Core
     game = Game()
@@ -48,6 +58,8 @@ def create_game() -> None:
     input_map.bind(pygame.K_SPACE, InputAction.CONFIRM)
 
     input_adapter = PygameInputAdapter(input_map)
+
+    logger.info("Jeu initialisé — classe=%s, debug=%s", settings.TITLE, debug)
 
     # Font path
     font_path = "assets/fonts/Enchanted_Land.otf"
@@ -148,7 +160,15 @@ def create_game() -> None:
                                                input_adapter.state)
                 scene_manager.push(gameplay_scene)
 
+        # Debug overlay
+        if debug_overlay.enabled:
+            debug_overlay.render(
+                screen, game.world,
+                gameplay_scene.current_map if current is gameplay_scene else "",
+            )
+
         pygame.display.update()
         clock.tick(settings.FPS)
 
+    logger.info("Fermeture du jeu")
     pygame.quit()

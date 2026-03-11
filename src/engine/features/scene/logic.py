@@ -1,11 +1,14 @@
 """SceneManager: gestion d'une pile de scènes (push/pop)."""
 
 from __future__ import annotations
+import logging
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from engine.core.game import Game
+
+logger = logging.getLogger(__name__)
 
 
 class Scene(ABC):
@@ -38,15 +41,18 @@ class SceneManager:
         scene.game = self.game
         self._stack.append(scene)
         scene.on_enter()
+        logger.info("Scene push: %s", type(scene).__name__)
 
     def pop(self) -> Scene | None:
         if self._stack:
             scene = self._stack.pop()
             scene.on_exit()
+            logger.info("Scene pop: %s", type(scene).__name__)
             return scene
         return None
 
     def replace(self, scene: Scene) -> None:
+        logger.info("Scene replace → %s", type(scene).__name__)
         self.pop()
         self.push(scene)
 

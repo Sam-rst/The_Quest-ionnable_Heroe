@@ -1,8 +1,11 @@
 """JSON backend for the SaveManager."""
 
 import json
+import logging
 import os
 from engine.features.save.logic import SaveBackend
+
+logger = logging.getLogger(__name__)
 
 
 class JsonBackend(SaveBackend):
@@ -12,14 +15,18 @@ class JsonBackend(SaveBackend):
     def load(self) -> dict:
         try:
             with open(self.filepath, "r") as f:
-                return json.load(f)
+                data = json.load(f)
+            logger.debug("Loaded save from %s", self.filepath)
+            return data
         except (FileNotFoundError, json.JSONDecodeError):
+            logger.debug("No save found at %s", self.filepath)
             return {}
 
     def save(self, data: dict) -> None:
         os.makedirs(os.path.dirname(self.filepath) or ".", exist_ok=True)
         with open(self.filepath, "w") as f:
             json.dump(data, f, indent=2)
+        logger.debug("Saved to %s", self.filepath)
 
     def delete(self) -> None:
         if os.path.exists(self.filepath):

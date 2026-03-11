@@ -1,8 +1,11 @@
 """GameOverScene: affiche 'Game Over' et permet le respawn."""
 
+import logging
 import pygame
 import sys
 from engine.features.scene.logic import Scene
+
+logger = logging.getLogger(__name__)
 
 
 class GameOverScene(Scene):
@@ -12,6 +15,7 @@ class GameOverScene(Scene):
         self.respawned = False
 
     def on_enter(self) -> None:
+        logger.info("Game Over affiché")
         self.screen = pygame.display.get_surface()
         self.respawned = False
 
@@ -25,6 +29,7 @@ class GameOverScene(Scene):
                     pygame.quit()
                     sys.exit()
                 if event.key in (pygame.K_e, pygame.K_SPACE):
+                    logger.info("Respawn demandé")
                     self.save_manager.delete()
                     self.respawned = True
 
