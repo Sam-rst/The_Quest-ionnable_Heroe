@@ -8,3 +8,10 @@ dependencies = [
     "pygame>=2.6.1",
     "pytmx>=3.32",
 ]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/engine", "src/game"]
