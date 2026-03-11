@@ -64,9 +64,8 @@ class TilemapData:
 
     def get_waypoint(self, name: str) -> tuple[int, int] | None:
         for wp in self.waypoints:
-            return_val = (int(wp.x * self.scale), int(wp.y * self.scale))
             if wp.name == name:
-                return return_val
+                return (int(wp.x * self.scale), int(wp.y * self.scale))
         return None
 
 
@@ -77,7 +76,12 @@ def parse_tmx(tmx_path: str, scale: int = 4,
     import pytmx
     from pytmx.util_pygame import load_pygame
 
-    tmx = load_pygame(tmx_path)
+    try:
+        tmx = load_pygame(tmx_path)
+    except Exception:
+        logger.exception("Impossible de charger le TMX: %s", tmx_path)
+        return TilemapData(name="error", width_tiles=0, height_tiles=0,
+                           tile_width=16, tile_height=16, scale=scale)
 
     data = TilemapData(
         name=tmx_path.rsplit("/", 1)[-1].replace(".tmx", ""),

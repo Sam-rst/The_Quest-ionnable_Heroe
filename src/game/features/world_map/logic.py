@@ -16,13 +16,29 @@ _DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 
 
 def load_maps_config() -> dict:
-    with open(os.path.join(_DATA_DIR, "maps.json"), "r") as f:
-        return json.load(f)
+    path = os.path.join(_DATA_DIR, "maps.json")
+    try:
+        with open(path, "r") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        logger.error("Fichier maps.json introuvable: %s", path)
+        return {}
+    except json.JSONDecodeError:
+        logger.error("Fichier maps.json corrompu: %s", path)
+        return {}
 
 
 def load_spawns_config() -> dict:
-    with open(os.path.join(_DATA_DIR, "spawns.json"), "r") as f:
-        return json.load(f)
+    path = os.path.join(_DATA_DIR, "spawns.json")
+    try:
+        with open(path, "r") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        logger.error("Fichier spawns.json introuvable: %s", path)
+        return {}
+    except json.JSONDecodeError:
+        logger.error("Fichier spawns.json corrompu: %s", path)
+        return {}
 
 
 class WorldMapSystem(System):
@@ -55,14 +71,17 @@ class WorldMapSystem(System):
         for spawn_def in spawns.get("enemies", []):
             if spawn_def["map"] != map_name:
                 continue
-            x = random.randint(100, max(200, map_pixel_size[0] - 100))
-            y = random.randint(100, max(200, map_pixel_size[1] - 100))
-            entity = create_enemy(spawn_def["type"], spawn_def["name"], x, y, asset_loader)
-            ai = entity.get(AIComponent)
-            if ai:
-                ai.current_map = map_name
-            game.world.add_entity(entity)
-            logger.debug("Spawned enemy %s (%s) on %s", spawn_def["name"], spawn_def["type"], map_name)
+            try:
+                x = random.randint(100, max(200, map_pixel_size[0] - 100))
+                y = random.randint(100, max(200, map_pixel_size[1] - 100))
+                entity = create_enemy(spawn_def["type"], spawn_def["name"], x, y, asset_loader)
+                ai = entity.get(AIComponent)
+                if ai:
+                    ai.current_map = map_name
+                game.world.add_entity(entity)
+                logger.debug("Spawned enemy %s (%s) on %s", spawn_def["name"], spawn_def["type"], map_name)
+            except Exception:
+                logger.exception("Échec du spawn ennemi: %s", spawn_def.get("name", "?"))
 
     def spawn_npcs_for_map(self, map_name: str, game, asset_loader,
                            tilemap_data=None, map_pixel_size: tuple = (2000, 2000)) -> None:
@@ -73,31 +92,38 @@ class WorldMapSystem(System):
         for spawn_def in spawns.get("npcs", []):
             if spawn_def["map"] != map_name:
                 continue
-            npc_type = spawn_def["type"]
+            try:
+                npc_type = spawn_def["type"]
 
-            # Get position from waypoint or random
-            x, y = 2000.0, 1200.0
-            if tilemap_data:
-                # Load NPC data to check for spawn_waypoint
-                char_data_dir = os.path.normpath(os.path.join(
-                    os.path.dirname(__file__), "..", "character", "data"
-                ))
-                npcs_data_path = os.path.join(char_data_dir, "npcs.json")
-                with open(npcs_data_path, "r") as f:
-                    npcs_data = json.load(f)
-                npc_data = npcs_data.get(npc_type, {})
-                wp_name = npc_data.get("spawn_waypoint")
-                if wp_name:
-                    pos = tilemap_data.get_waypoint(wp_name)
-                    if pos:
-                        x, y = pos
-                if npc_data.get("random_spawn"):
-                    x = random.randint(500, max(600, map_pixel_size[0] - 500))
-                    y = random.randint(500, max(600, map_pixel_size[1] - 500))
+                # Get position from waypoint or random
+                x, y = 2000.0, 1200.0
+                if tilemap_data:
+                    # Load NPC data to check for spawn_waypoint
+                    char_data_dir = os.path.normpath(os.path.join(
+                        os.path.dirname(__file__), "..", "character", "data"
+                    ))
+                    npcs_data_path = os.path.join(char_data_dir, "npcs.json")
+                    try:
+                        with open(npcs_data_path, "r") as f:
+                            npcs_data = json.load(f)
+                    except (FileNotFoundError, json.JSONDecodeError):
+                        logger.error("npcs.json illisible: %s", npcs_data_path)
+                        npcs_data = {}
+                    npc_data = npcs_data.get(npc_type, {})
+                    wp_name = npc_data.get("spawn_waypoint")
+                    if wp_name:
+                        pos = tilemap_data.get_waypoint(wp_name)
+                        if pos:
+                            x, y = pos
+                    if npc_data.get("random_spawn"):
+                        x = random.randint(500, max(600, map_pixel_size[0] - 500))
+                        y = random.randint(500, max(600, map_pixel_size[1] - 500))
 
-            entity = create_npc(npc_type, spawn_def["name"], x, y, asset_loader)
-            npc_comp = entity.get(NPCComponent)
-            if npc_comp:
-                npc_comp.current_map = map_name
-            game.world.add_entity(entity)
-            logger.debug("Spawned NPC %s (%s) on %s", spawn_def["name"], npc_type, map_name)
+                entity = create_npc(npc_type, spawn_def["name"], x, y, asset_loader)
+                npc_comp = entity.get(NPCComponent)
+                if npc_comp:
+                    npc_comp.current_map = map_name
+                game.world.add_entity(entity)
+                logger.debug("Spawned NPC %s (%s) on %s", spawn_def["name"], npc_type, map_name)
+            except Exception:
+                logger.exception("Échec du spawn NPC: %s", spawn_def.get("name", "?"))

@@ -18,9 +18,16 @@ class AssetLoader:
     @property
     def manifest(self) -> dict:
         if self._manifest is None:
-            with open(self.manifest_path, "r") as f:
-                self._manifest = json.load(f)
-            logger.info("Manifest loaded: %s", self.manifest_path)
+            try:
+                with open(self.manifest_path, "r") as f:
+                    self._manifest = json.load(f)
+                logger.info("Manifest loaded: %s", self.manifest_path)
+            except FileNotFoundError:
+                logger.error("Manifest introuvable: %s", self.manifest_path)
+                self._manifest = {}
+            except json.JSONDecodeError:
+                logger.error("Manifest corrompu: %s", self.manifest_path)
+                self._manifest = {}
         return self._manifest
 
     def load_animation(self, sprite_id: str, action: str, direction: str) -> list:
@@ -49,7 +56,10 @@ class AssetLoader:
         frames = []
         for frame_file in anim_def:
             path = os.path.join(base_path, action, direction, frame_file)
-            frames.append(pygame.image.load(path).convert_alpha())
+            try:
+                frames.append(pygame.image.load(path).convert_alpha())
+            except (FileNotFoundError, pygame.error) as e:
+                logger.warning("Frame manquante: %s (%s)", path, e)
 
         self._cache[cache_key] = frames
         return frames
@@ -91,13 +101,16 @@ class AssetLoader:
         frames = []
         for frame_path in item_def.get("frames", []):
             path = os.path.join(self.base_dir, frame_path)
-            frames.append(pygame.image.load(path).convert_alpha())
+            try:
+                frames.append(pygame.image.load(path).convert_alpha())
+            except (FileNotFoundError, pygame.error) as e:
+                logger.warning("Item frame manquante: %s (%s)", path, e)
 
         self._cache[cache_key] = frames
         return frames
 
     def load_image(self, relative_path: str):
-        """Charge une image unique."""
+        """Charge une image unique. Retourne None si absente."""
         import pygame
 
         cache_key = f"img/{relative_path}"
@@ -105,6 +118,10 @@ class AssetLoader:
             return self._cache[cache_key]
 
         path = os.path.join(self.base_dir, relative_path)
-        img = pygame.image.load(path).convert_alpha()
+        try:
+            img = pygame.image.load(path).convert_alpha()
+        except (FileNotFoundError, pygame.error) as e:
+            logger.warning("Image manquante: %s (%s)", path, e)
+            return None
         self._cache[cache_key] = img
         return img

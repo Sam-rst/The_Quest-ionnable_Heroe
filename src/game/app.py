@@ -105,70 +105,85 @@ def create_game(debug: bool = False) -> None:
 
     # --- Main Loop ---
     game.running = True
+    consecutive_errors = 0
+    max_consecutive_errors = 5
     while game.running:
-        dt = game.time.tick()
-        events = pygame.event.get()
+        try:
+            dt = game.time.tick()
+            events = pygame.event.get()
 
-        # Check quit
-        for event in events:
-            if event.type == pygame.QUIT:
-                gameplay_scene._save_and_quit()
+            # Check quit
+            for event in events:
+                if event.type == pygame.QUIT:
+                    gameplay_scene._save_and_quit()
 
-        # Process input
-        input_adapter.process_events(events)
+            # Process input
+            input_adapter.process_events(events)
 
-        current = scene_manager.current
-        if current is gameplay_scene:
-            gameplay_scene.handle_events(events)
+            current = scene_manager.current
+            if current is gameplay_scene:
+                gameplay_scene.handle_events(events)
 
-            if gameplay_scene.game_over:
-                scene_manager.replace(game_over_scene)
-            else:
-                gameplay_scene.update(dt)
-                gameplay_scene.render()
+                if gameplay_scene.game_over:
+                    scene_manager.replace(game_over_scene)
+                else:
+                    gameplay_scene.update(dt)
+                    gameplay_scene.render()
 
-        elif current is game_over_scene:
-            game_over_scene.handle_events(events)
-            game_over_scene.render()
+            elif current is game_over_scene:
+                game_over_scene.handle_events(events)
+                game_over_scene.render()
 
-            if game_over_scene.respawned:
-                # Restart with a fresh menu
-                scene_manager.pop()
-                game.world.clear()
+                if game_over_scene.respawned:
+                    # Restart with a fresh menu
+                    scene_manager.pop()
+                    game.world.clear()
 
-                menu_scene = MainMenuScene(save_manager, asset_loader, font_path)
-                scene_manager.push(menu_scene)
+                    menu_scene = MainMenuScene(save_manager, asset_loader, font_path)
+                    scene_manager.push(menu_scene)
 
-                while not menu_scene.done:
-                    events = pygame.event.get()
-                    for event in events:
-                        if event.type == pygame.QUIT:
-                            pygame.quit()
-                            sys.exit()
-                    menu_scene.handle_events(events)
-                    menu_scene.render()
-                    clock.tick(settings.FPS)
+                    while not menu_scene.done:
+                        events = pygame.event.get()
+                        for event in events:
+                            if event.type == pygame.QUIT:
+                                pygame.quit()
+                                sys.exit()
+                        menu_scene.handle_events(events)
+                        menu_scene.render()
+                        clock.tick(settings.FPS)
 
-                scene_manager.pop()
-                selected_class = menu_scene.selected_class
-                if not selected_class:
-                    pygame.quit()
-                    sys.exit()
+                    scene_manager.pop()
+                    selected_class = menu_scene.selected_class
+                    if not selected_class:
+                        pygame.quit()
+                        sys.exit()
 
-                save_manager.reload()
-                gameplay_scene = GameplayScene(selected_class, save_manager, asset_loader,
-                                               input_adapter.state)
-                scene_manager.push(gameplay_scene)
+                    save_manager.reload()
+                    gameplay_scene = GameplayScene(selected_class, save_manager, asset_loader,
+                                                   input_adapter.state)
+                    scene_manager.push(gameplay_scene)
 
-        # Debug overlay
-        if debug_overlay.enabled:
-            debug_overlay.render(
-                screen, game.world,
-                gameplay_scene.current_map if current is gameplay_scene else "",
-            )
+            # Debug overlay
+            if debug_overlay.enabled:
+                debug_overlay.render(
+                    screen, game.world,
+                    gameplay_scene.current_map if current is gameplay_scene else "",
+                )
 
-        pygame.display.update()
-        clock.tick(settings.FPS)
+            pygame.display.update()
+            clock.tick(settings.FPS)
+            consecutive_errors = 0
+        except Exception:
+            consecutive_errors += 1
+            logger.exception("Erreur dans la boucle principale (%d/%d)",
+                             consecutive_errors, max_consecutive_errors)
+            if consecutive_errors >= max_consecutive_errors:
+                logger.error("Trop d'erreurs consécutives — sauvegarde d'urgence et arrêt")
+                try:
+                    gameplay_scene._do_save()
+                except Exception:
+                    logger.exception("Échec de la sauvegarde d'urgence")
+                break
 
     logger.info("Fermeture du jeu")
     pygame.quit()

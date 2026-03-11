@@ -23,10 +23,13 @@ class JsonBackend(SaveBackend):
             return {}
 
     def save(self, data: dict) -> None:
-        os.makedirs(os.path.dirname(self.filepath) or ".", exist_ok=True)
-        with open(self.filepath, "w") as f:
-            json.dump(data, f, indent=2)
-        logger.debug("Saved to %s", self.filepath)
+        try:
+            os.makedirs(os.path.dirname(self.filepath) or ".", exist_ok=True)
+            with open(self.filepath, "w") as f:
+                json.dump(data, f, indent=2)
+            logger.debug("Saved to %s", self.filepath)
+        except OSError:
+            logger.exception("Impossible d'écrire la sauvegarde: %s", self.filepath)
 
     def delete(self) -> None:
         if os.path.exists(self.filepath):

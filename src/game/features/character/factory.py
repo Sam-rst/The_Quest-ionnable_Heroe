@@ -20,14 +20,32 @@ _DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 
 
 def _load_json(filename: str) -> dict:
-    with open(os.path.join(_DATA_DIR, filename), "r") as f:
-        return json.load(f)
+    path = os.path.join(_DATA_DIR, filename)
+    try:
+        with open(path, "r") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        logger.error("Fichier de config introuvable: %s", path)
+        return {}
+    except json.JSONDecodeError:
+        logger.error("Fichier de config corrompu: %s", path)
+        return {}
+
+
+_DEFAULT_STATS = {
+    "max_hp": 100, "attack": 10, "defense": 5, "range": 3,
+    "cooldown": 500, "speed": 3, "sprite_id": "player_warrior",
+    "animation_speed": 0.15, "display_name": "Unknown",
+}
 
 
 def create_player(class_name: str, name: str, x: float, y: float,
                   asset_loader: AssetLoader | None = None) -> Entity:
     classes = _load_json("classes.json")
-    data = classes[class_name]
+    data = classes.get(class_name)
+    if not data:
+        logger.error("Classe inconnue '%s' — stats par défaut", class_name)
+        data = _DEFAULT_STATS
 
     entity = Entity()
     entity.add(NameComponent(name=name, entity_type="Player"))
@@ -54,7 +72,10 @@ def create_player(class_name: str, name: str, x: float, y: float,
 def create_enemy(enemy_type: str, name: str, x: float, y: float,
                  asset_loader: AssetLoader | None = None) -> Entity:
     enemies = _load_json("enemies.json")
-    data = enemies[enemy_type]
+    data = enemies.get(enemy_type)
+    if not data:
+        logger.error("Type ennemi inconnu '%s' — stats par défaut", enemy_type)
+        data = _DEFAULT_STATS
 
     entity = Entity()
     entity.add(NameComponent(name=name, entity_type=enemy_type))
@@ -83,7 +104,10 @@ def create_enemy(enemy_type: str, name: str, x: float, y: float,
 def create_npc(npc_type: str, name: str, x: float, y: float,
                asset_loader: AssetLoader | None = None) -> Entity:
     npcs = _load_json("npcs.json")
-    data = npcs[npc_type]
+    data = npcs.get(npc_type)
+    if not data:
+        logger.error("Type NPC inconnu '%s' — stats par défaut", npc_type)
+        data = _DEFAULT_STATS
 
     entity = Entity()
     entity.add(NameComponent(name=name, entity_type=npc_type))

@@ -12,8 +12,16 @@ _DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 
 
 def load_shop_config() -> dict:
-    with open(os.path.join(_DATA_DIR, "shop_config.json"), "r") as f:
-        return json.load(f)
+    path = os.path.join(_DATA_DIR, "shop_config.json")
+    try:
+        with open(path, "r") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        logger.error("Fichier shop_config.json introuvable: %s", path)
+        return {"trades": []}
+    except json.JSONDecodeError:
+        logger.error("Fichier shop_config.json corrompu: %s", path)
+        return {"trades": []}
 
 
 def try_purchase(inventory: InventoryComponent, trade_index: int = 0) -> bool:

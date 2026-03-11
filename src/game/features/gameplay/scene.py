@@ -90,9 +90,16 @@ class GameplayScene(Scene):
         self.font_path = "assets/fonts/Enchanted_Land.otf"
 
         # Load projectile images
-        self.orb_red_img = pygame.image.load("assets/sprites/weapons/orbs/orb_red.png").convert_alpha()
-        self.orb_yellow_img = pygame.image.load("assets/sprites/weapons/orbs/orb_yellow.png").convert_alpha()
-        self.potion_img = pygame.image.load("assets/sprites/potions/potion_heal.png").convert_alpha()
+        for attr, path in [
+            ("orb_red_img", "assets/sprites/weapons/orbs/orb_red.png"),
+            ("orb_yellow_img", "assets/sprites/weapons/orbs/orb_yellow.png"),
+            ("potion_img", "assets/sprites/potions/potion_heal.png"),
+        ]:
+            try:
+                setattr(self, attr, pygame.image.load(path).convert_alpha())
+            except (FileNotFoundError, pygame.error) as e:
+                logger.warning("Image manquante: %s (%s)", path, e)
+                setattr(self, attr, None)
 
         # Load item frames
         piece_frames = self.asset_loader.load_item_frames("piece")
@@ -128,9 +135,12 @@ class GameplayScene(Scene):
             spawn_pos = (200, 200)
 
         # Check for saved position
-        saved_pos = self.save_manager.get("player_position")
-        if saved_pos:
-            spawn_pos = (saved_pos["x"], saved_pos["y"])
+        try:
+            saved_pos = self.save_manager.get("player_position")
+            if saved_pos and isinstance(saved_pos, dict):
+                spawn_pos = (saved_pos["x"], saved_pos["y"])
+        except (KeyError, TypeError):
+            logger.warning("Position sauvegardée corrompue — position par défaut")
 
         self.player_entity = create_player(
             self.player_class, settings.PLAYER_NAME,
@@ -141,30 +151,40 @@ class GameplayScene(Scene):
 
         # Add inventory component
         inventory = InventoryComponent()
-        saved_inv = self.save_manager.get("inventory", [])
-        inventory.items = saved_inv
+        try:
+            saved_inv = self.save_manager.get("inventory", [])
+            if isinstance(saved_inv, list):
+                inventory.items = saved_inv
+        except Exception:
+            logger.warning("Inventaire sauvegardé corrompu — inventaire vide")
         self.player_entity.add(inventory)
 
         # Restore saved HP
-        saved_life = self.save_manager.get("player_life")
         stats = self.player_entity.get(StatsComponent)
-        if saved_life and isinstance(saved_life, (int, float)) and saved_life > 0:
-            stats.hp = int(saved_life)
+        try:
+            saved_life = self.save_manager.get("player_life")
+            if saved_life and isinstance(saved_life, (int, float)) and saved_life > 0:
+                stats.hp = int(saved_life)
+        except (ValueError, TypeError):
+            logger.warning("HP sauvegardés corrompus — HP par défaut")
 
         # Restore saved stats from player_class
-        saved_class = self.save_manager.get("player_class")
-        if saved_class and isinstance(saved_class, dict):
-            name_comp = self.player_entity.get(NameComponent)
-            if name_comp:
-                name_comp.name = saved_class.get("Name", settings.PLAYER_NAME)
-            if "Max HP" in saved_class:
-                stats.max_hp = saved_class["Max HP"]
-            if "Attack value" in saved_class:
-                stats.attack = saved_class["Attack value"]
-            if "Defend value" in saved_class:
-                stats.defense = saved_class["Defend value"]
-            if "Attack range" in saved_class:
-                stats.attack_range = saved_class["Attack range"]
+        try:
+            saved_class = self.save_manager.get("player_class")
+            if saved_class and isinstance(saved_class, dict):
+                name_comp = self.player_entity.get(NameComponent)
+                if name_comp:
+                    name_comp.name = saved_class.get("Name", settings.PLAYER_NAME)
+                if "Max HP" in saved_class:
+                    stats.max_hp = saved_class["Max HP"]
+                if "Attack value" in saved_class:
+                    stats.attack = saved_class["Attack value"]
+                if "Defend value" in saved_class:
+                    stats.defense = saved_class["Defend value"]
+                if "Attack range" in saved_class:
+                    stats.attack_range = saved_class["Attack range"]
+        except (KeyError, TypeError):
+            logger.warning("Stats sauvegardées corrompues — stats par défaut")
 
         self.game.world.add_entity(self.player_entity)
         logger.info("Joueur spawné à (%.0f, %.0f) sur %s", spawn_pos[0], spawn_pos[1], self.current_map)
@@ -368,9 +388,9 @@ class GameplayScene(Scene):
             if entity.has(ProjectileComponent):
                 # Draw projectile
                 proj = entity.get(ProjectileComponent)
-                img = self.orb_yellow_img if proj.is_enemy else self.orb_red_img
-                if img:
-                    self.screen.blit(img, (transform.x - ox, transform.y - oy))
+                proj_img = self.orb_yellow_img if proj.is_enemy else self.orb_red_img
+                if proj_img is not None:
+                    self.screen.blit(proj_img, (transform.x - ox, transform.y - oy))
             elif entity.has(DroppedItemComponent):
                 # Draw item
                 drop = entity.get(DroppedItemComponent)
