@@ -426,19 +426,25 @@ class GameplayScene(Scene):
                     drop.animation_index += drop.animation_speed
                     if drop.animation_index >= len(frames):
                         drop.animation_index = 0
-                    img = frames[int(drop.animation_index)]
-                    w = int(img.get_width() * settings.SCALE)
-                    h = int(img.get_height() * settings.SCALE)
-                    img = pygame.transform.scale(img, (w, h))
-                    self.screen.blit(img, (transform.x - ox, transform.y - oy))
+                    raw = frames[int(drop.animation_index)]
+                    w = int(raw.get_width() * settings.SCALE)
+                    h = int(raw.get_height() * settings.SCALE)
+                    scaled = sprite.get_scaled(w, h)
+                    if scaled is None:
+                        scaled = pygame.transform.scale(raw, (w, h))
+                        sprite.set_scaled(raw, scaled, w, h)
+                    self.screen.blit(scaled, (transform.x - ox, transform.y - oy))
             else:
                 # Draw character/NPC/enemy
-                img = sprite.image
-                if img:
-                    w = int(img.get_width() * settings.SCALE // 2.5)
-                    h = int(img.get_height() * settings.SCALE // 2.5)
-                    img = pygame.transform.scale(img, (w, h))
-                    self.screen.blit(img, (transform.x - ox, transform.y - oy))
+                raw = sprite.image
+                if raw:
+                    w = int(raw.get_width() * settings.SCALE // 2.5)
+                    h = int(raw.get_height() * settings.SCALE // 2.5)
+                    scaled = sprite.get_scaled(w, h)
+                    if scaled is None:
+                        scaled = pygame.transform.scale(raw, (w, h))
+                        sprite.set_scaled(raw, scaled, w, h)
+                    self.screen.blit(scaled, (transform.x - ox, transform.y - oy))
 
                 # Draw health bar for enemies and player
                 if entity.has(AIComponent) or entity.has(PlayerComponent):
@@ -450,11 +456,13 @@ class GameplayScene(Scene):
             sprite = entity.get(SpriteComponent)
             if not sprite.image:
                 continue
+            # Utiliser les dimensions cachées si disponibles
+            if sprite.image is sprite._cached_raw_ref and sprite._cached_scaled is not None:
+                w, h = sprite._cached_w, sprite._cached_h
+            else:
+                w = int(sprite.image.get_width() * settings.SCALE // 2.5)
+                h = int(sprite.image.get_height() * settings.SCALE // 2.5)
             collider = entity.get(ColliderComponent)
-            # Taille rendue (même formule que render)
-            w = int(sprite.image.get_width() * settings.SCALE // 2.5)
-            h = int(sprite.image.get_height() * settings.SCALE // 2.5)
-            # Pieds = 20% bas de l'image, toute la largeur
             collider.width = w
             collider.height = int(h * 0.2)
             collider.offset_x = 0
