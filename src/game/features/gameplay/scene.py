@@ -1,6 +1,8 @@
 """GameplayScene: orchestre tous les systèmes pendant le jeu."""
 
+import json
 import logging
+import os
 import pygame
 import sys
 import math
@@ -74,6 +76,7 @@ class GameplayScene(Scene):
         self.orb_yellow_img = None
         self.potion_img = None
         self.item_frames: dict[str, list] = {}
+        self.item_config: dict = {}
         self.font_path: str | None = None
 
     def on_enter(self) -> None:
@@ -100,6 +103,14 @@ class GameplayScene(Scene):
             except (FileNotFoundError, pygame.error) as e:
                 logger.warning("Image manquante: %s (%s)", path, e)
                 setattr(self, attr, None)
+
+        # Load item config
+        items_json = os.path.join(os.path.dirname(__file__), "..", "inventory", "data", "items.json")
+        try:
+            with open(items_json) as f:
+                self.item_config = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            logger.warning("items.json introuvable ou invalide: %s", e)
 
         # Load item frames
         piece_frames = self.asset_loader.load_item_frames("piece")
@@ -302,6 +313,12 @@ class GameplayScene(Scene):
 
         # Update feet colliders from current sprite frame
         self._update_feet_colliders()
+
+        # Régénération progressive (potions)
+        if self.player_entity:
+            player_stats = self.player_entity.get(StatsComponent)
+            if player_stats:
+                player_stats.update_regen(dt)
 
         # Apply physics integration for entities on current map
         for entity in self.game.world.query(TransformComponent, VelocityComponent):
@@ -597,9 +614,17 @@ class GameplayScene(Scene):
 
         if inv.count("potion") >= 1:
             inv.remove_item("potion")
-            new_hp = int(stats.hp * 1.6)
-            stats.hp = min(new_hp, stats.max_hp)
-            logger.info("Potion utilisée — HP=%d/%d", stats.hp, stats.max_hp)
+            cfg = self.item_config.get("potion", {})
+            heal_instant = cfg.get("heal_instant", 20)
+            regen_duration = cfg.get("regen_duration", 5)
+            regen_rate = cfg.get("regen_rate_percent", 0.025)
+            # Soin instantané
+            stats.heal(heal_instant)
+            # Régénération progressive (durée fixe en secondes)
+            if regen_duration > 0:
+                stats.start_regen(regen_duration, regen_rate)
+            logger.info("Potion utilisée — HP=%d/%d (+%d instant, +%.1f%%/s pendant %ds)",
+                        stats.hp, stats.max_hp, heal_instant, regen_rate * 100, regen_duration)
 
     def _do_save(self) -> None:
         if not self.player_entity:

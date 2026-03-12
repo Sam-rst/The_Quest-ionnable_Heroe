@@ -14,6 +14,10 @@ class StatsComponent(Component):
         self.cooldown = cooldown
         self.speed = speed
         self.last_shot_time: float = 0.0
+        # Régénération progressive (potion)
+        self._regen_ticks: int = 0          # nombre de ticks restants (1 tick = 1s)
+        self._regen_rate: float = 0.0       # % max_hp par tick
+        self._regen_timer: float = 0.0      # accumulateur temps
 
     def is_alive(self) -> bool:
         return self.hp > 0
@@ -26,6 +30,22 @@ class StatsComponent(Component):
 
     def regenerate(self) -> None:
         self.hp = self.max_hp
+
+    def start_regen(self, ticks: int, rate: float) -> None:
+        """Lance une régénération progressive (ticks × rate% max_hp, 1 tick/s)."""
+        self._regen_ticks += ticks
+        self._regen_rate = rate
+        self._regen_timer = 0.0
+
+    def update_regen(self, dt: float) -> None:
+        """Applique rate% max_hp en int toutes les secondes. Appelé chaque frame."""
+        if self._regen_ticks <= 0:
+            return
+        self._regen_timer += dt
+        while self._regen_timer >= 1.0 and self._regen_ticks > 0:
+            self._regen_timer -= 1.0
+            self._regen_ticks -= 1
+            self.hp = min(self.max_hp, self.hp + int(self.max_hp * self._regen_rate))
 
 
 class ClassComponent(Component):

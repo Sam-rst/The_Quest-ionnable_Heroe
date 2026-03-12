@@ -6,7 +6,9 @@
   },
   "potion": {
     "type": "consumable",
-    "heal_percent": 1.6,
+    "heal_instant": 20,
+    "regen_duration": 5,
+    "regen_rate_percent": 0.025,
     "image": "potions/potion_heal.png"
   }
 }

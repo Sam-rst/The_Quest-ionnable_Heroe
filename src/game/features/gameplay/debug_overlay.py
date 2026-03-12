@@ -169,13 +169,18 @@ class DebugOverlay:
                     pygame.draw.line(screen, (0, 255, 255),
                                      (int(cx), int(cy)), (int(end_x), int(end_y)), 2)
 
-            # 5. Stats label (skip projectiles)
+            # 5. Stats label (skip projectiles) — centré sur le sprite
             if not entity.has(ProjectileComponent) and self._small_font:
                 stats = entity.get(StatsComponent) if entity.has(StatsComponent) else None
                 if stats:
+                    sprite = entity.get(SpriteComponent) if entity.has(SpriteComponent) else None
+                    if sprite and sprite._cached_scaled:
+                        cx = transform.x + sprite._cached_w / 2 - ox
+                    else:
+                        cx = transform.x - ox
                     label = f"#{entity.id} HP:{stats.hp}/{stats.max_hp} ATK:{stats.attack} DEF:{stats.defense}"
                     surf = self._small_font.render(label, True, (255, 255, 255))
-                    screen.blit(surf, (transform.x - ox, transform.y - oy - 16))
+                    screen.blit(surf, (cx - surf.get_width() / 2, transform.y - oy - 28))
 
         # 6. Sprite-only entities (no collider) — projectiles, dropped items
         for entity in world.query(TransformComponent, SpriteComponent):

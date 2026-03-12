@@ -155,6 +155,7 @@ Save data persists to `saves/save.json` (auto-save every 5s, save on quit). Dele
 - **Auto-commit**: When the user confirms a bug is fixed or a feature works, commit immediately without asking. Do not wait for the user to request a commit.
 - **No Co-Authored-By**: Never add `Co-Authored-By` lines in git commit messages.
 - **Commit language**: Write commit messages in French.
+- **Error handling**: Wrap code that can fail (file I/O, asset loading, external data) in try/except with `logger.exception()` or `logger.warning()`. Never let an error crash the game silently — log it and continue gracefully when possible.
 
 ### Verification
 
