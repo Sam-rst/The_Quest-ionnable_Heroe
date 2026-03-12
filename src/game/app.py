@@ -31,7 +31,8 @@ def create_game(debug: bool = False) -> None:
 
     # Debug overlay
     debug_overlay = DebugOverlay()
-    debug_overlay.enabled = debug
+    if debug:
+        debug_overlay.level = 3
     debug_overlay.init(clock)
 
     # Core
@@ -112,10 +113,12 @@ def create_game(debug: bool = False) -> None:
             dt = game.time.tick()
             events = pygame.event.get()
 
-            # Check quit
+            # Check quit + F3 debug toggle
             for event in events:
                 if event.type == pygame.QUIT:
                     gameplay_scene._save_and_quit()
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_F3:
+                    debug_overlay.cycle()
 
             # Process input
             input_adapter.process_events(events)
@@ -164,11 +167,16 @@ def create_game(debug: bool = False) -> None:
                     scene_manager.push(gameplay_scene)
 
             # Debug overlay
-            if debug_overlay.enabled:
+            if current is gameplay_scene and gameplay_scene.camera:
                 debug_overlay.render(
                     screen, game.world,
-                    gameplay_scene.current_map if current is gameplay_scene else "",
+                    gameplay_scene.current_map,
+                    camera_offset=(gameplay_scene.camera.offset_x,
+                                   gameplay_scene.camera.offset_y),
+                    tilemap_data=gameplay_scene.tilemap_data,
                 )
+            else:
+                debug_overlay.render(screen, game.world, "")
 
             pygame.display.update()
             clock.tick(settings.FPS)
