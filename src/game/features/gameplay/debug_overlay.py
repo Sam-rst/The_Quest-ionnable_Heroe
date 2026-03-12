@@ -111,6 +111,17 @@ class DebugOverlay:
                     )
                     screen.blit(label, (tp.x - ox + 2, tp.y - oy - 14))
 
+            # 3b. Waypoints (coordonnées TMX × scale)
+            s = settings.SCALE
+            for wp in td.waypoints:
+                wx, wy = int(wp.x * s - ox), int(wp.y * s - oy)
+                pygame.draw.circle(screen, (255, 255, 0), (wx, wy), 5, 1)
+                pygame.draw.line(screen, (255, 255, 0), (wx - 7, wy), (wx + 7, wy), 1)
+                pygame.draw.line(screen, (255, 255, 0), (wx, wy - 7), (wx, wy + 7), 1)
+                if self._small_font:
+                    label = self._small_font.render(wp.name, True, (255, 255, 0))
+                    screen.blit(label, (wx + 8, wy - 7))
+
         # 2. Entity hitboxes + 4. velocity vectors + 5. stats
         for entity in world.query(ColliderComponent, TransformComponent):
             collider = entity.get(ColliderComponent)
@@ -172,6 +183,59 @@ class DebugOverlay:
                 continue  # already handled above
             transform = entity.get(TransformComponent)
             self._draw_sprite_rect(screen, entity, transform, ox, oy)
+
+        # 7. Interaction zones — NPC merchants (rayon 100)
+        for entity in world.query(NPCComponent, TransformComponent, SpriteComponent):
+            npc = entity.get(NPCComponent)
+            if npc.current_map != current_map:
+                continue
+            if npc.npc_type == "Merchant":
+                t = entity.get(TransformComponent)
+                sprite = entity.get(SpriteComponent)
+                if sprite and sprite._cached_scaled:
+                    cx = int(t.x + sprite._cached_w / 2 - ox)
+                    cy = int(t.y + sprite._cached_h / 2 - oy)
+                else:
+                    cx, cy = int(t.x - ox), int(t.y - oy)
+                pygame.draw.circle(screen, (255, 165, 0), (cx, cy), 100, 1)
+                if self._small_font:
+                    label = self._small_font.render("Shop (R)", True, (255, 165, 0))
+                    screen.blit(label, (cx - label.get_width() // 2, cy - 110))
+
+        # 8. Interaction zones — dropped items (rayon 50)
+        for entity in world.query(DroppedItemComponent, TransformComponent):
+            drop = entity.get(DroppedItemComponent)
+            if drop.current_map != current_map:
+                continue
+            t = entity.get(TransformComponent)
+            sprite = entity.get(SpriteComponent) if entity.has(SpriteComponent) else None
+            if sprite and sprite._cached_scaled:
+                cx = int(t.x + sprite._cached_w / 2 - ox)
+                cy = int(t.y + sprite._cached_h / 2 - oy)
+            else:
+                cx, cy = int(t.x - ox), int(t.y - oy)
+            pygame.draw.circle(screen, (0, 200, 200), (cx, cy), 50, 1)
+            if self._small_font:
+                label = self._small_font.render("Pickup (A)", True, (0, 200, 200))
+                screen.blit(label, (cx - label.get_width() // 2, cy - 60))
+
+        # 9. Player interaction points
+        for entity in world.query(PlayerComponent, TransformComponent, SpriteComponent):
+            t = entity.get(TransformComponent)
+            sprite = entity.get(SpriteComponent)
+            collider = entity.get(ColliderComponent) if entity.has(ColliderComponent) else None
+            # Centre image (blanc) — interactions NPC/items
+            if sprite and sprite._cached_scaled:
+                cx = int(t.x + sprite._cached_w / 2 - ox)
+                cy = int(t.y + sprite._cached_h / 2 - oy)
+            else:
+                cx, cy = int(t.x - ox), int(t.y - oy)
+            pygame.draw.circle(screen, (255, 255, 255), (cx, cy), 3)
+            # Centre pieds (rouge) — téléportation
+            if collider and collider.width > 0:
+                fx = int(t.x + collider.offset_x + collider.width / 2 - ox)
+                fy = int(t.y + collider.offset_y + collider.height / 2 - oy)
+                pygame.draw.circle(screen, (255, 0, 0), (fx, fy), 3)
 
     # ------------------------------------------------------------------
     # Sprite image rect

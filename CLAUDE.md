@@ -150,6 +150,12 @@ Old files in root (`sprites.py`, `images.py`, `camera.py`, `carte.py`, `caracter
 
 Save data persists to `saves/save.json` (auto-save every 5s, save on quit). Deleted on game over.
 
+### Workflow Rules
+
+- **Auto-commit**: When the user confirms a bug is fixed or a feature works, commit immediately without asking. Do not wait for the user to request a commit.
+- **No Co-Authored-By**: Never add `Co-Authored-By` lines in git commit messages.
+- **Commit language**: Write commit messages in French.
+
 ### Verification
 
 ```bash

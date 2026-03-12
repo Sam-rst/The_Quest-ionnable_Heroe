@@ -468,21 +468,44 @@ class GameplayScene(Scene):
             collider.offset_x = 0
             collider.offset_y = int(h * 0.8)
 
+    def _player_center(self) -> tuple[float, float] | None:
+        """Retourne le centre de l'image sprite du joueur (point d'interaction)."""
+        pt = self.player_entity.get(TransformComponent) if self.player_entity else None
+        if not pt:
+            return None
+        sprite = self.player_entity.get(SpriteComponent)
+        if sprite and sprite._cached_scaled:
+            return pt.x + sprite._cached_w / 2, pt.y + sprite._cached_h / 2
+        return pt.x, pt.y
+
+    def _player_feet_center(self) -> tuple[float, float] | None:
+        """Retourne le centre du collider pieds du joueur (point de téléportation)."""
+        pt = self.player_entity.get(TransformComponent) if self.player_entity else None
+        if not pt:
+            return None
+        collider = self.player_entity.get(ColliderComponent)
+        if collider and collider.width > 0:
+            return (pt.x + collider.offset_x + collider.width / 2,
+                    pt.y + collider.offset_y + collider.height / 2)
+        return pt.x, pt.y
+
     def _try_teleport(self) -> None:
         if not self.player_entity:
             return
         pt = self.player_entity.get(TransformComponent)
-        if not pt:
+        center = self._player_center()
+        if not pt or not center:
             return
+        px, py = center
 
         td = self.tilemap_data.get(self.current_map)
         if not td:
             return
 
         for tp in td.teleporters:
-            # Check if player is in teleporter zone
-            if (tp.x <= pt.x <= tp.x + tp.width and
-                    tp.y <= pt.y <= tp.y + tp.height):
+            # Check if player image center is in teleporter zone
+            if (tp.x <= px <= tp.x + tp.width and
+                    tp.y <= py <= tp.y + tp.height):
                 dest_map = tp.destination_map
                 dest_wp = tp.destination_waypoint
 
@@ -493,7 +516,13 @@ class GameplayScene(Scene):
                         self.current_map = dest_map
                         if self.world_map_system:
                             self.world_map_system.current_map = dest_map
-                        pt.x, pt.y = dest_pos
+                        # Placer le joueur pour que ses pieds atterrissent sur le waypoint
+                        collider = self.player_entity.get(ColliderComponent)
+                        if collider and collider.width > 0:
+                            pt.x = dest_pos[0] - collider.offset_x - collider.width / 2
+                            pt.y = dest_pos[1] - collider.offset_y - collider.height / 2
+                        else:
+                            pt.x, pt.y = dest_pos
                         pc = self.player_entity.get(PlayerComponent)
                         if pc:
                             pc.current_map = dest_map
@@ -502,10 +531,11 @@ class GameplayScene(Scene):
     def _try_pickup(self) -> None:
         if not self.player_entity:
             return
-        pt = self.player_entity.get(TransformComponent)
+        center = self._player_center()
         inv = self.player_entity.get(InventoryComponent)
-        if not pt or not inv:
+        if not center or not inv:
             return
+        px, py = center
 
         to_remove = []
         for entity in self.game.world.query(DroppedItemComponent, TransformComponent):
@@ -513,8 +543,15 @@ class GameplayScene(Scene):
             dt = entity.get(TransformComponent)
             if drop.current_map != self.current_map:
                 continue
-            dx = pt.x - dt.x
-            dy = pt.y - dt.y
+            # Centre de l'image de l'item (utiliser le cache sprite)
+            item_sprite = entity.get(SpriteComponent) if entity.has(SpriteComponent) else None
+            if item_sprite and item_sprite._cached_scaled:
+                icx = dt.x + item_sprite._cached_w / 2
+                icy = dt.y + item_sprite._cached_h / 2
+            else:
+                icx, icy = dt.x, dt.y
+            dx = px - icx
+            dy = py - icy
             if dx * dx + dy * dy < 50 * 50:
                 inv.add_item(drop.item_name)
                 to_remove.append(entity.id)
@@ -526,18 +563,25 @@ class GameplayScene(Scene):
     def _try_open_shop(self) -> None:
         if not self.player_entity:
             return
-        pt = self.player_entity.get(TransformComponent)
+        center = self._player_center()
         inv = self.player_entity.get(InventoryComponent)
-        if not pt or not inv:
+        if not center or not inv:
             return
+        px, py = center
 
-        # Check if near a merchant
-        for entity in self.game.world.query(NPCComponent, TransformComponent):
+        # Check if near a merchant (distance centre-à-centre)
+        for entity in self.game.world.query(NPCComponent, TransformComponent, SpriteComponent):
             npc = entity.get(NPCComponent)
             nt = entity.get(TransformComponent)
             if npc.npc_type == "Merchant" and npc.current_map == self.current_map:
-                dx = pt.x - nt.x
-                dy = pt.y - nt.y
+                npc_sprite = entity.get(SpriteComponent)
+                if npc_sprite and npc_sprite._cached_scaled:
+                    ncx = nt.x + npc_sprite._cached_w / 2
+                    ncy = nt.y + npc_sprite._cached_h / 2
+                else:
+                    ncx, ncy = nt.x, nt.y
+                dx = px - ncx
+                dy = py - ncy
                 if dx * dx + dy * dy < 100 * 100:
                     logger.info("Ouverture boutique")
                     run_shop_menu(self.screen, inv, self.potion_img, self.font_path)
