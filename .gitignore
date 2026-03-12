@@ -181,3 +181,6 @@ save.json
 
 # Logs
 logs/
+
+.vscode/
+.claude/
