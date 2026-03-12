@@ -1,16 +1,20 @@
 [project]
 name = "the-quest-ionnable-heroe"
-version = "0.1.0"
-description = "Add your description here"
+version = "0.2.0"
+description = "2D top-down RPG built with pygame and pytmx — feature-based ECS architecture"
 readme = "README.md"
 requires-python = ">=3.13"
+license = "MIT"
 dependencies = [
     "pygame>=2.6.1",
     "pytmx>=3.32",
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8.0"]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=7.0",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

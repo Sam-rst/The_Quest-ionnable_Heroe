@@ -182,5 +182,21 @@ save.json
 # Logs
 logs/
 
+# IDE / Editor
 .vscode/
+.idea/
+
+# Claude Code
 .claude/
+
+# Screenshots (debug)
+screenshot.png
+
+# Tiled editor session files
+*.tiled-session
+*.tiled-project
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
