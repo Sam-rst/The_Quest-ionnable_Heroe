@@ -378,7 +378,7 @@ class GameplayScene(Scene):
                 if entity.get(DroppedItemComponent).current_map == self.current_map:
                     show = True
 
-            if show and sprite.image:
+            if show and (sprite.image or entity.has(ProjectileComponent) or entity.has(DroppedItemComponent)):
                 drawables.append((transform.y, entity, sprite, transform))
 
         drawables.sort(key=lambda d: d[0])
