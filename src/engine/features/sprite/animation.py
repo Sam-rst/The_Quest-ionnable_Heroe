@@ -10,6 +10,10 @@ def update_animation(anim: AnimationSetComponent, sprite: SpriteComponent,
     if not frames:
         return
 
+    # Initialiser l'image si pas encore définie
+    if sprite.image is None:
+        sprite.image = frames[0]
+
     if anim.is_attack:
         if not anim.is_attack_animating:
             anim.is_attack_animating = True

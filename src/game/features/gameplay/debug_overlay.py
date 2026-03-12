@@ -1,16 +1,18 @@
 """DebugOverlay: debug visuel cyclique (F3) — texte, hitboxes, vélocité, stats."""
 
-import math
 import pygame
 
 from engine.features.physics.components import (
     TransformComponent, VelocityComponent, ColliderComponent,
 )
+from engine.features.sprite.components import SpriteComponent
 from game.features.player.components import PlayerComponent
 from game.features.enemy_ai.components import AIComponent
 from game.features.npc.components import NPCComponent
 from game.features.combat.components import ProjectileComponent
+from game.features.inventory.components import DroppedItemComponent
 from game.features.character.components import StatsComponent
+from game import settings
 
 
 # Debug levels: 0=OFF, 1=TEXT, 2=VISUAL, 3=ALL
@@ -134,11 +136,14 @@ class DebugOverlay:
                 if entity.get(NPCComponent).current_map != current_map:
                     continue
 
-            # Draw hitbox rect
+            # Draw hitbox rect (collider)
             rect_x = collider.left - ox
             rect_y = collider.top - oy
             pygame.draw.rect(screen, color,
                              (rect_x, rect_y, collider.width, collider.height), 2)
+
+            # Draw sprite image rect (magenta)
+            self._draw_sprite_rect(screen, entity, transform, ox, oy)
 
             # 4. Velocity vector
             vel = entity.get(VelocityComponent) if entity.has(VelocityComponent) else None
@@ -160,6 +165,33 @@ class DebugOverlay:
                     label = f"#{entity.id} HP:{stats.hp}/{stats.max_hp} ATK:{stats.attack} DEF:{stats.defense}"
                     surf = self._small_font.render(label, True, (255, 255, 255))
                     screen.blit(surf, (transform.x - ox, transform.y - oy - 16))
+
+        # 6. Sprite-only entities (no collider) — projectiles, dropped items
+        for entity in world.query(TransformComponent, SpriteComponent):
+            if entity.has(ColliderComponent):
+                continue  # already handled above
+            transform = entity.get(TransformComponent)
+            self._draw_sprite_rect(screen, entity, transform, ox, oy)
+
+    # ------------------------------------------------------------------
+    # Sprite image rect
+    # ------------------------------------------------------------------
+    def _draw_sprite_rect(self, screen: pygame.Surface, entity, transform,
+                          ox: float, oy: float) -> None:
+        """Draw magenta outline for the rendered sprite image bounds."""
+        sprite = entity.get(SpriteComponent) if entity.has(SpriteComponent) else None
+        if sprite and sprite.image:
+            img = sprite.image
+            if entity.has(ProjectileComponent):
+                w, h = img.get_width(), img.get_height()
+            elif entity.has(DroppedItemComponent):
+                w = int(img.get_width() * settings.SCALE)
+                h = int(img.get_height() * settings.SCALE)
+            else:
+                w = int(img.get_width() * settings.SCALE // 2.5)
+                h = int(img.get_height() * settings.SCALE // 2.5)
+            pygame.draw.rect(screen, (255, 0, 255),
+                             (transform.x - ox, transform.y - oy, w, h), 1)
 
     # ------------------------------------------------------------------
     # Collision rects cache

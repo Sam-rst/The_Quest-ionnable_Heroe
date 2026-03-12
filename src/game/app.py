@@ -119,6 +119,9 @@ def create_game(debug: bool = False) -> None:
                     gameplay_scene._save_and_quit()
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_F3:
                     debug_overlay.cycle()
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_F2:
+                    pygame.image.save(screen, "screenshot.png")
+                    logger.info("Screenshot → screenshot.png")
 
             # Process input
             input_adapter.process_events(events)

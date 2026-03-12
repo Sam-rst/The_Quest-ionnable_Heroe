@@ -14,7 +14,7 @@ from engine.features.tilemap.logic import parse_tmx, TilemapData
 from engine.features.tilemap.renderer import TilemapRenderer
 from engine.features.sprite.components import SpriteComponent, AnimationSetComponent
 from engine.features.sprite.animation import update_animation
-from engine.features.physics.components import TransformComponent, VelocityComponent
+from engine.features.physics.components import TransformComponent, VelocityComponent, ColliderComponent
 from engine.features.save.logic import SaveManager
 
 from game.features.player.logic import PlayerSystem
@@ -300,6 +300,9 @@ class GameplayScene(Scene):
             if visible:
                 update_animation(anim, sprite, settings.SCALE)
 
+        # Update feet colliders from current sprite frame
+        self._update_feet_colliders()
+
         # Apply physics integration for entities on current map
         for entity in self.game.world.query(TransformComponent, VelocityComponent):
             if entity.has(ProjectileComponent):
@@ -317,17 +320,41 @@ class GameplayScene(Scene):
                 transform.x += velocity.dx * velocity.speed * dt
                 transform.y += velocity.dy * velocity.speed * dt
 
-                # Map boundary collision
+                # Obstacle + map boundary collision
                 td = self.tilemap_data.get(self.current_map)
                 if td:
-                    if transform.x < 0:
-                        transform.x = 0
-                    if transform.x > td.pixel_width:
-                        transform.x = td.pixel_width
-                    if transform.y < 0:
-                        transform.y = 0
-                    if transform.y > td.pixel_height - td.scaled_tile_height:
-                        transform.y = td.pixel_height - td.scaled_tile_height
+                    collider = entity.get(ColliderComponent)
+                    if collider and td.collision_rects:
+                        # Test X axis separately
+                        ex = transform.x + collider.offset_x
+                        ey = transform.old_y + collider.offset_y
+                        for rect in td.collision_rects:
+                            if (ex < rect.x + rect.width and ex + collider.width > rect.x and
+                                    ey < rect.y + rect.height and ey + collider.height > rect.y):
+                                transform.x = transform.old_x
+                                break
+                        # Test Y axis separately
+                        ex = transform.x + collider.offset_x
+                        ey = transform.y + collider.offset_y
+                        for rect in td.collision_rects:
+                            if (ex < rect.x + rect.width and ex + collider.width > rect.x and
+                                    ey < rect.y + rect.height and ey + collider.height > rect.y):
+                                transform.y = transform.old_y
+                                break
+
+                    # Map boundary clamping (account for collider offset)
+                    c_ox = collider.offset_x if collider else 0
+                    c_oy = collider.offset_y if collider else 0
+                    c_w = collider.width if collider else 0
+                    c_h = collider.height if collider else 0
+                    if transform.x + c_ox < 0:
+                        transform.x = -c_ox
+                    if transform.x + c_ox + c_w > td.pixel_width:
+                        transform.x = td.pixel_width - c_ox - c_w
+                    if transform.y + c_oy < 0:
+                        transform.y = -c_oy
+                    if transform.y + c_oy + c_h > td.pixel_height:
+                        transform.y = td.pixel_height - c_oy - c_h
 
         # Update camera
         if self.player_entity and self.camera:
@@ -416,6 +443,22 @@ class GameplayScene(Scene):
                 # Draw health bar for enemies and player
                 if entity.has(AIComponent) or entity.has(PlayerComponent):
                     draw_health_bar(self.screen, entity, ox, oy)
+
+    def _update_feet_colliders(self) -> None:
+        """Met à jour le collider pieds depuis l'image sprite courante (s'adapte à chaque frame)."""
+        for entity in self.game.world.query(ColliderComponent, SpriteComponent):
+            sprite = entity.get(SpriteComponent)
+            if not sprite.image:
+                continue
+            collider = entity.get(ColliderComponent)
+            # Taille rendue (même formule que render)
+            w = int(sprite.image.get_width() * settings.SCALE // 2.5)
+            h = int(sprite.image.get_height() * settings.SCALE // 2.5)
+            # Pieds = 20% bas de l'image, toute la largeur
+            collider.width = w
+            collider.height = int(h * 0.2)
+            collider.offset_x = 0
+            collider.offset_y = int(h * 0.8)
 
     def _try_teleport(self) -> None:
         if not self.player_entity:

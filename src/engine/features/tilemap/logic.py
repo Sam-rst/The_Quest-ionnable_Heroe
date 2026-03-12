@@ -98,14 +98,26 @@ def parse_tmx(tmx_path: str, scale: int = 4,
             for obj in obj_group:
                 data.waypoints.append(Waypoint(name=obj.name, x=obj.x, y=obj.y))
 
-    # Extraire les collision rects
+    # Extraire les collision rects (objectgroups prioritaires, fallback tile layers)
     collision_layers = collision_layers or ["Collisions"]
-    for layer in tmx.visible_layers:
-        if isinstance(layer, pytmx.TiledTileLayer) and layer.name in collision_layers:
-            tw = tmx.tilewidth * scale
-            th = tmx.tileheight * scale
-            for x, y, _image in layer.tiles():
-                data.collision_rects.append(TileRect(x * tw, y * th, tw, th))
+    found_object_collisions = False
+    for obj_group in tmx.objectgroups:
+        if obj_group.name in collision_layers:
+            found_object_collisions = True
+            for obj in obj_group:
+                data.collision_rects.append(TileRect(
+                    obj.x * scale, obj.y * scale,
+                    (obj.width or tmx.tilewidth) * scale,
+                    (obj.height or tmx.tileheight) * scale,
+                ))
+
+    if not found_object_collisions:
+        for layer in tmx.visible_layers:
+            if isinstance(layer, pytmx.TiledTileLayer) and layer.name in collision_layers:
+                tw = tmx.tilewidth * scale
+                th = tmx.tileheight * scale
+                for x, y, _image in layer.tiles():
+                    data.collision_rects.append(TileRect(x * tw, y * th, tw, th))
 
     # Extraire les teleporters
     if teleporter_defs:

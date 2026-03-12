@@ -38,7 +38,6 @@ _DEFAULT_STATS = {
     "animation_speed": 0.15, "display_name": "Unknown",
 }
 
-
 def create_player(class_name: str, name: str, x: float, y: float,
                   asset_loader: AssetLoader | None = None) -> Entity:
     classes = _load_json("classes.json")
